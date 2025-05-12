@@ -11,37 +11,27 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.project.skill_hunt.data.TokenPreferences
+import com.project.skill_hunt.data.network.RetrofitInstance
+import com.project.skill_hunt.data.repository.AuthRepository
+import com.project.skill_hunt.ui.AppNavHost
+import com.project.skill_hunt.ui.login.AuthViewModelFactory
 import com.project.skill_hunt.ui.theme.SkillHuntTheme
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
+        val prefs = TokenPreferences(this)
+        val api   = RetrofitInstance.create { prefs.getToken() }
+        val repo  = AuthRepository(api, prefs)
+        val vmFactory = AuthViewModelFactory(repo)
+
         setContent {
             SkillHuntTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                AppNavHost(vmFactory)
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SkillHuntTheme {
-        Greeting("Android")
     }
 }
