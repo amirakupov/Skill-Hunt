@@ -1,36 +1,43 @@
-package com.project.skill_hunt
-
+// In MainActivity.kt
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.project.skill_hunt.data.TokenPreferences
-import com.project.skill_hunt.data.network.RetrofitInstance
-import com.project.skill_hunt.data.repository.AuthRepository
-import com.project.skill_hunt.ui.AppNavHost
-import com.project.skill_hunt.ui.login.AuthViewModelFactory
-import com.project.skill_hunt.ui.theme.SkillHuntTheme
-
+import com.project.skill_hunt.data.network.fake.FakeApiService //tempo Import your fake service
 
 class MainActivity : ComponentActivity() {
+    private lateinit var authVmFactory: AuthViewModelFactory
+    private lateinit var createCourseVmFactory: CreateCourseViewModelFactory
+    private lateinit var browseCoursesVmFactory: BrowseCoursesViewModelFactory // Assuming you add this
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val prefs = TokenPreferences(this)
-        val api   = RetrofitInstance.create { prefs.getToken() }
-        val repo  = AuthRepository(api, prefs)
-        val vmFactory = AuthViewModelFactory(repo)
+
+        //tempo --- TEMPORARY SWITCH TO FAKE API SERVICE ---
+        val api: com.google.firebase.appdistribution.gradle.ApiService = FakeApiService() //tempo Instantiate the fake one
+        //tempo val api = RetrofitInstance.create { prefs.getToken() } //tempo This is the real one
+
+        // Auth related (will use the fake API if needed)
+        val authRepo = AuthRepository(api, prefs) // AuthRepository stays the same
+        authVmFactory = AuthViewModelFactory(authRepo)
+
+        // Course related
+        val courseRepo = CourseRepository(api) // CourseRepository stays the same, uses the provided 'api'
+        createCourseVmFactory = CreateCourseViewModelFactory(courseRepo) // Your existing factory
+
+        // For Browse Listings (you'll create this ViewModel and Factory)
+        // Example:
+        // val getAvailableListingsUseCase = GetAvailableListingsUseCase(courseRepo)
+        // val getListingDetailsUseCase = GetListingDetailsUseCase(courseRepo)
+        // browseCoursesVmFactory = BrowseCoursesViewModelFactory(getAvailableListingsUseCase, getListingDetailsUseCase)
 
         setContent {
             SkillHuntTheme {
-                AppNavHost(vmFactory)
+                AppNavHost(
+                    authViewModelFactory = authVmFactory,
+                    createCourseViewModelFactory = createCourseVmFactory
+                    // browseCoursesViewModelFactory = browseCoursesVmFactory
+                )
             }
         }
     }
