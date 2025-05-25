@@ -6,7 +6,7 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object DatabaseFactory {
+object pDatabaseFactory {
     fun init() {
         val config = HikariConfig().apply {
             jdbcUrl = "jdbc:postgresql://localhost:5432/skillhunt?user=skilluser&password=blabla"
