@@ -22,7 +22,7 @@ object DatabaseFactory {
 
         // Create tables at startup
         transaction {
-            SchemaUtils.create(Users)
+            SchemaUtils.create(Users, Courses)
         }
     }
 }

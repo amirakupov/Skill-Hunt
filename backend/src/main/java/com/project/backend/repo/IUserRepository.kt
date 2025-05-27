@@ -1,4 +1,4 @@
-package com.project.backend.auth
+package com.project.backend.repo
 
 interface IUserRepository {
     fun add(email: String, hash: String)

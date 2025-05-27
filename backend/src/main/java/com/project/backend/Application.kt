@@ -2,7 +2,6 @@ package com.project.backend
 import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
-import com.project.backend.auth.*
 
 import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
@@ -10,6 +9,14 @@ import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.routing.*
 import io.ktor.server.response.*
 import com.project.backend.db.DatabaseFactory
+import com.project.backend.models.AddCourseRequest
+import com.project.backend.models.LoginRequest
+import com.project.backend.models.RegisterRequest
+import com.project.backend.repo.CourseRepositoryImpl
+import com.project.backend.repo.UserRepositoryImpl
+import com.project.backend.service.AuthService
+import io.ktor.http.HttpStatusCode
+import com.project.backend.service.CourseService
 import io.ktor.server.auth.Authentication
 import io.ktor.server.auth.authenticate
 import io.ktor.server.auth.jwt.JWTPrincipal
@@ -50,6 +57,7 @@ fun Application.module() {
     DatabaseFactory.init()
     install(ContentNegotiation) { json() }
     val authService = AuthService(UserRepositoryImpl)
+    val courseService = CourseService(CourseRepositoryImpl)
 
     // install JWT auth
     install(Authentication) {
@@ -87,6 +95,19 @@ fun Application.module() {
                     val userEmail = principal.payload.getClaim("email").asString()
                     call.respondText("Hello, $userEmail — you’re in the protected area!")
                 }
+                route("/courses") {
+                    get {
+                        val principal = call.principal<JWTPrincipal>()!!
+                        val list = courseService.getCourses(principal)
+                        call.respond(list)
+                    }
+                    post {
+                        val principal = call.principal<JWTPrincipal>()!!
+                        val req       = call.receive<AddCourseRequest>()
+                        val resp      = courseService.addCourse(req, principal)
+                        call.respond(HttpStatusCode.Created, resp)
+                    }
+                }
             }
         }
     }
@@ -97,7 +118,6 @@ fun main() {
     }.start(wait = true)
 }
 
-// simple response class to include token
 @kotlinx.serialization.Serializable
 data class LoginResponseWithToken(val email: String, val token: String)
 

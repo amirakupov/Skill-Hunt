@@ -1,6 +1,8 @@
 
 package com.project.skill_hunt
 
+import com.project.skill_hunt.data.model.AddCourseRequest
+import com.project.skill_hunt.data.model.CourseResponse
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -12,5 +14,11 @@ interface ApiService {
     suspend fun login(@Body req: LoginRequest): LoginResponseWithToken
 
     @GET("api/protected")
-    suspend fun getProtected(): ResponseBody  // returns plain-text greeting
+    suspend fun getProtected(): ResponseBody
+
+    @POST("api/courses")
+    suspend fun addCourse(@Body req: AddCourseRequest): CourseResponse
+
+    @GET("api/courses")
+    suspend fun getCourses(): List<CourseResponse>
 }

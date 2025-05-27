@@ -1,4 +1,4 @@
-package com.project.backend.auth
+package com.project.backend.repo
 
 import com.project.backend.db.Users
 import org.jetbrains.exposed.sql.insert

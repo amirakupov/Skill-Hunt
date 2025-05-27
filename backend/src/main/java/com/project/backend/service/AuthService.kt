@@ -1,6 +1,9 @@
-package com.project.backend.auth
+package com.project.backend.service
 
 import at.favre.lib.crypto.bcrypt.BCrypt
+import com.project.backend.repo.IUserRepository
+import com.project.backend.models.LoginResponse
+import com.project.backend.models.RegisterResponse
 
 class AuthService(private val repo: IUserRepository) {
     fun register(email: String, password: String): RegisterResponse {

@@ -90,7 +90,9 @@ fun LoginScreen(
 @Composable
 fun ProtectedHomeScreen(
     vm: AuthViewModel,
-    navToLogin: () -> Unit
+    navToLogin: () -> Unit,
+    navToAddCourse: () -> Unit,
+    navToCourses: () -> Unit      // ← new
 ) {
     var message by remember { mutableStateOf("Loading...") }
 
@@ -101,6 +103,23 @@ fun ProtectedHomeScreen(
     Column(Modifier.padding(16.dp)) {
         Text(message, style = MaterialTheme.typography.bodyLarge)
         Spacer(Modifier.height(16.dp))
+
+        Button(
+            onClick = navToAddCourse,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Add new mentoring course")
+        }
+        Spacer(Modifier.height(8.dp))
+
+        Button(
+            onClick = navToCourses,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("View my courses")
+        }
+        Spacer(Modifier.height(16.dp))
+
         Button(onClick = { vm.logout(navToLogin) }) {
             Text("Log Out")
         }

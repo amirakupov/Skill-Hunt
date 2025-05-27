@@ -14,7 +14,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.project.skill_hunt.data.TokenPreferences
 import com.project.skill_hunt.data.network.RetrofitInstance
 import com.project.skill_hunt.data.repository.AuthRepository
+import com.project.skill_hunt.data.repository.CourseRepository
 import com.project.skill_hunt.ui.AppNavHost
+import com.project.skill_hunt.ui.CourseListViewModelFactory
+import com.project.skill_hunt.ui.CourseViewModel
+import com.project.skill_hunt.ui.CourseViewModelFactory
 import com.project.skill_hunt.ui.login.AuthViewModelFactory
 import com.project.skill_hunt.ui.theme.SkillHuntTheme
 
@@ -26,11 +30,15 @@ class MainActivity : ComponentActivity() {
         val prefs = TokenPreferences(this)
         val api   = RetrofitInstance.create { prefs.getToken() }
         val repo  = AuthRepository(api, prefs)
-        val vmFactory = AuthViewModelFactory(repo)
+        val authVmFactory = AuthViewModelFactory(repo)
+        val courseRepo      = CourseRepository(api)
+        val courseVmFactory = CourseViewModelFactory(courseRepo)
+        val listVmFactory    = CourseListViewModelFactory(courseRepo)
 
         setContent {
             SkillHuntTheme {
-                AppNavHost(vmFactory)
+                AppNavHost(authVmFactory = authVmFactory, courseListVmFactory = listVmFactory, courseVmFactory = courseVmFactory)
+
             }
         }
     }

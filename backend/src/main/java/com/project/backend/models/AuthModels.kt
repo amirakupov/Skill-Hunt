@@ -1,4 +1,4 @@
-package com.project.backend.auth
+package com.project.backend.models
 
 import at.favre.lib.crypto.bcrypt.BCrypt
 import kotlinx.serialization.Serializable

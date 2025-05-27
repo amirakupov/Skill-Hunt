@@ -7,28 +7,77 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.project.skill_hunt.ui.login.AuthViewModel
 import com.project.skill_hunt.ui.login.AuthViewModelFactory
+import com.project.skill_hunt.ui.screens.CourseListScreen
 
 @Composable
 fun AppNavHost(
-    vmFactory: AuthViewModelFactory
+    authVmFactory: AuthViewModelFactory,
+    courseVmFactory: CourseViewModelFactory,
+    courseListVmFactory: CourseListViewModelFactory
 ) {
-    val nav = rememberNavController()
-    val vm: AuthViewModel = viewModel(factory = vmFactory)
+    val navController = rememberNavController()
+    val authVm: AuthViewModel = viewModel(factory = authVmFactory)
 
-    NavHost(nav, startDestination = if (vm.authToken != null) "home" else "login") {
+    NavHost(
+        navController,
+        startDestination = if (authVm.authToken != null) "home" else "login"
+    ) {
         composable("register") {
-            RegisterScreen(vm) { nav.navigate("login"){ popUpTo("register") { inclusive=true } } }
+            RegisterScreen(authVm) {
+                navController.navigate("login") {
+                    popUpTo("register") { inclusive = true }
+                }
+            }
         }
+
         composable("login") {
-            LoginScreen(vm,
-                { nav.navigate("home"){ popUpTo("login"){ inclusive=true } } },
-                { nav.navigate("register") }
+            LoginScreen(
+                vm = authVm,
+                navToHome = {
+                    navController.navigate("home") {
+                        popUpTo("login") { inclusive = true }
+                    }
+                },
+                navToRegister = {
+                    navController.navigate("register")
+                }
             )
         }
+
         composable("home") {
-            ProtectedHomeScreen(vm) {
-                nav.navigate("login"){ popUpTo("home"){ inclusive=true } }
+            ProtectedHomeScreen(
+                vm = authVm,
+                navToLogin = {
+                    navController.navigate("login") {
+                        popUpTo("home") { inclusive = true }
+                    }
+                },
+                navToAddCourse = {
+                    navController.navigate("addCourse")
+                },
+                navToCourses = {
+                    navController.navigate("courses")
+                }
+            )
+        }
+
+        composable("courses") {
+            val listVm: CourseListViewModel = viewModel(factory = courseListVmFactory)
+            CourseListScreen(
+                vm = listVm,
+                onAddCourse = {
+                    navController.navigate("addCourse")
+                }
+            )
+        }
+
+        composable("addCourse") {
+            val addVm: CourseViewModel = viewModel(factory = courseVmFactory)
+            AddCourseScreen(addVm) {
+                // when done, go back to the courses list
+                navController.popBackStack()
             }
         }
     }
 }
+

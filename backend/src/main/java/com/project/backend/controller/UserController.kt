@@ -1,10 +1,9 @@
-package com.project.backend.auth
+package com.project.backend.controller
 
-import com.project.backend.auth.AuthService
-import com.project.backend.auth.RegisterRequest
-import com.project.backend.auth.LoginRequest
+import com.project.backend.models.RegisterRequest
+import com.project.backend.models.LoginRequest
+import com.project.backend.service.AuthService
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*

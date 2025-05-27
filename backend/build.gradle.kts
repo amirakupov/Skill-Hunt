@@ -24,7 +24,7 @@ dependencies {
     implementation("org.postgresql:postgresql:42.5.1")
     implementation("io.ktor:ktor-server-auth:2.3.4")
     implementation("io.ktor:ktor-server-auth-jwt:2.3.4")
-
+    implementation("org.jetbrains.exposed:exposed-jodatime:0.41.1")
 
 
     runtimeOnly("ch.qos.logback:logback-classic:$logbackVersion")
