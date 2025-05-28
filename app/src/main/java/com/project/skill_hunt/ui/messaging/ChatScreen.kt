@@ -18,7 +18,7 @@ fun ChatScreen(
     val uiState by chatViewModel.uiState.collectAsState()
     val messageInput by chatViewModel.messageInput.collectAsState()
 
-    // Your UI for displaying chat messages and input field
+    //  UI for displaying chat messages and input field
     // Example:
     // Column {
     //     Button(onClick = navUp) { Text("Back") } // Example nav up

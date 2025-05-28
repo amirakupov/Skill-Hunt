@@ -12,7 +12,7 @@ import kotlin.text.isBlank
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateCourseScreen(
-    // The factory will be provided from where you instantiate this screen (e.g., MainActivity or NavHost)
+    // The factory will be provided from where instantiate this screen (e.g., MainActivity or NavHost)
     viewModelFactory: CreateCourseViewModelFactory,
     onCourseCreatedSuccessfully: (String) -> Unit // Callback with courseId to navigate or show success
 ) {
@@ -99,7 +99,7 @@ fun CreateCourseScreen(
             }
             if (uiState is CreateCourseUiState.Success) {
                 // Success message is handled by navigation callback,
-                // but you could also show a temporary success message here if desired before navigation.
+                // but could also show a temporary success message here if desired before navigation.
             }
         }
     }

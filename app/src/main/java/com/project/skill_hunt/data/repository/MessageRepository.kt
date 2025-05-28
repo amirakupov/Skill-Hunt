@@ -4,7 +4,7 @@ import com.project.skill_hunt.ApiService
 import com.project.skill_hunt.data.model.ConversationSnippet
 import com.project.skill_hunt.data.model.Message
 import com.project.skill_hunt.data.model.SendMessageRequest
-// import okhttp3.ResponseBody // If you use it for markConversationAsRead
+// import okhttp3.ResponseBody // If use it for markConversationAsRead
 
 class MessageRepository(private val api: ApiService) { // ApiService should resolve correctly
 

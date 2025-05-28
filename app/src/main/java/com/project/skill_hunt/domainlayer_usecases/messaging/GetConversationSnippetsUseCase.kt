@@ -16,7 +16,7 @@ class GetConversationSnippetsUseCase(private val messageRepository: MessageRepos
         }
     }
 
-    // Optional: If you want to make this observable as a Flow for real-time updates (even with fakes)
+    // Optional: If want to make this observable as a Flow for real-time updates (even with fakes)
     // fun observeConversations(): Flow<Result<List<ConversationSnippet>>> = flow {
     //     try {
     //         // In a real app with websockets or other real-time mechanisms,

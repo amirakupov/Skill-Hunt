@@ -14,7 +14,7 @@ import com.project.skill_hunt.ui.login.AuthViewModel
 import com.project.skill_hunt.ui.login.AuthViewModelFactory
 import com.project.skill_hunt.ui.messaging.ConversationListViewModelFactory
 import com.project.skill_hunt.ui.messaging.ChatViewModelFactory
-import com.project.skill_hunt.ui.AppDestinations // Make sure this import points to your AppDestinations.kt file
+import com.project.skill_hunt.ui.AppDestinations // Make sure this import points to  AppDestinations.kt file
 import com.project.skill_hunt.ui.login.RegisterScreen // Example import
 import com.project.skill_hunt.ui.login.LoginScreen    // Example import
 import com.project.skill_hunt.ui.home.ProtectedHomeScreen // Or ui.home.HomeScreen

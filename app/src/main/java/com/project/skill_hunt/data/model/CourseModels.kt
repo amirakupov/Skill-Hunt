@@ -1,4 +1,4 @@
-package com.project.skill_hunt.data.model // Or just com.project.skill_hunt if you prefer
+package com.project.skill_hunt.data.model // Or just com.project.skill_hunt if prefer
 
 import kotlinx.serialization.Serializable
 

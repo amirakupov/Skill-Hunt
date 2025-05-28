@@ -1,4 +1,4 @@
-package com.project.skill_hunt // Or your ApiService package
+package com.project.skill_hunt // Or  ApiService package
 
 // Auth
 import com.project.skill_hunt.data.model.RegisterRequest
@@ -11,7 +11,7 @@ import com.project.skill_hunt.data.model.CourseResponse
 // Messaging
 import com.project.skill_hunt.data.model.ConversationSnippet
 import com.project.skill_hunt.data.model.SendMessageRequest
-import com.project.skill_hunt.data.model.Message // IMPORTANT: This is your domain/network model
+import com.project.skill_hunt.data.model.Message // IMPORTANT: This is  domain/network model
 
 import okhttp3.ResponseBody
 import retrofit2.http.*
@@ -43,10 +43,10 @@ interface ApiService {
     suspend fun getConversationSnippets(): List<ConversationSnippet> // For conversation list
 
     @GET("api/messaging/conversations/{conversationId}/messages")
-    suspend fun getMessagesForConversation(@Path("conversationId") conversationId: String): List<Message> // Uses your Message model
+    suspend fun getMessagesForConversation(@Path("conversationId") conversationId: String): List<Message> // Uses  Message model
 
     @POST("api/messaging/messages")
-    suspend fun sendMessage(@Body request: SendMessageRequest): Message // Uses your Message model
+    suspend fun sendMessage(@Body request: SendMessageRequest): Message // Uses  Message model
 
     // Optional: An endpoint to mark messages as read could be useful
     // @POST("api/messaging/conversations/{conversationId}/read")

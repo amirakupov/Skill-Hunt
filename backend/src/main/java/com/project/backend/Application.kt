@@ -46,7 +46,7 @@ object JwtConfig {
 }
 
 fun Application.module() {
-    // init DB, JSON, your AuthService as before…
+    // init DB, JSON,  AuthService as before…
     DatabaseFactory.init()
     install(ContentNegotiation) { json() }
     val authService = AuthService(UserRepositoryImpl)
@@ -93,7 +93,7 @@ fun Application.module() {
 }
 fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
-        module()    // <-- your Application.module()
+        module()    // <--  Application.module()
     }.start(wait = true)
 }
 

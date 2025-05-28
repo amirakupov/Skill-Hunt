@@ -11,8 +11,8 @@ import com.project.skill_hunt.ui.course.CreateCourseViewModelFactory // Assuming
 import com.project.skill_hunt.data.repository.AuthRepository // Assuming this path
 import com.project.skill_hunt.data.repository.CourseRepository // Assuming this path
 import com.project.skill_hunt.data.TokenPreferences // Assuming this path
-import com.project.skill_hunt.ApiService // Import your actual ApiService interface
-import com.project.skill_hunt.ui.theme.SkillHuntTheme // Assuming this path for your theme
+import com.project.skill_hunt.ApiService // Import  actual ApiService interface
+import com.project.skill_hunt.ui.theme.SkillHuntTheme // Assuming this path for  theme
 import com.project.skill_hunt.ui.AppNavHost // Assuming this path
 
 // Messaging related imports
@@ -26,7 +26,7 @@ import com.project.skill_hunt.ui.messaging.ChatViewModelFactory
 class MainActivity : ComponentActivity() { // Extends ComponentActivity
     private lateinit var authVmFactory: AuthViewModelFactory
     private lateinit var createCourseVmFactory: CreateCourseViewModelFactory
-    // private lateinit var browseCoursesVmFactory: BrowseCoursesViewModelFactory // Assuming you add this
+    // private lateinit var browseCoursesVmFactory: BrowseCoursesViewModelFactory // Assuming add this
 
     // Messaging ViewModel Factories
     private lateinit var conversationListVmFactory: ConversationListViewModelFactory
@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() { // Extends ComponentActivity
 
         val prefs = TokenPreferences(this)
 
-        // Use your actual ApiService interface type here
+        // Use  actual ApiService interface type here
         val api: ApiService = FakeApiService() // Instantiate the fake one
         // val api = RetrofitInstance.create { prefs.getToken() } // This is the real one
 
@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() { // Extends ComponentActivity
         val courseRepo = CourseRepository(api)
         createCourseVmFactory = CreateCourseViewModelFactory(courseRepo)
 
-        // For Browse Listings (you'll create this ViewModel and Factory when ready)
+        // For Browse Listings ( create this ViewModel and Factory when ready)
         // val getAvailableListingsUseCase = GetAvailableListingsUseCase(courseRepo)
         // val getListingDetailsUseCase = GetListingDetailsUseCase(courseRepo)
         // browseCoursesVmFactory = BrowseCoursesViewModelFactory(getAvailableListingsUseCase, getListingDetailsUseCase)

@@ -1,4 +1,4 @@
-package com.project.skill_hunt.ui // Or your actual package
+package com.project.skill_hunt.ui // Or  actual package
 
 // In AppNavHost.kt or a separate AppDestinations.kt file
 
@@ -27,7 +27,7 @@ object AppDestinations {
     // navArgument("conversationId") { type = NavType.StringType; nullable = true },
     // navArgument("otherUserId") { type = NavType.StringType; nullable = true }
     // )
-    // Your CHAT_ROUTE_WITH_ARGS string template is correct for how Jetpack Navigation composes these.
+    //  CHAT_ROUTE_WITH_ARGS string template is correct for how Jetpack Navigation composes these.
 
 
     // Helper to build the chat route

@@ -9,11 +9,11 @@ import androidx.compose.foundation.layout.add
 import androidx.compose.ui.geometry.isEmpty
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.password
-import com.project.skill_hunt.ApiService // The REAL interface from your main project structure
+import com.project.skill_hunt.ApiService // The REAL interface from  main project structure
 
-// Import your data models
+// Import  data models
 import com.project.skill_hunt.data.model.CourseResponse
-import com.project.skill_hunt.data.model.CourseCreateRequest // Assuming you'll need this for createCourse
+import com.project.skill_hunt.data.model.CourseCreateRequest // Assuming  need this for createCourse
 import com.project.skill_hunt.data.model.RegisterRequest
 import com.project.skill_hunt.data.model.RegisterResponse
 import com.project.skill_hunt.data.model.LoginRequest
@@ -138,7 +138,7 @@ class FakeApiService : ApiService { // Implements the original ApiService interf
                 // Add some fake messages to populate snippets
                 val msg1 = androidx.datastore.core.Message("msg_${nextMessageId++}", conv1Id, "userB_fake_id", "currentUser_fake_id", "Hey there! (Fake)", System.currentTimeMillis() - 100000, false)
                 val msg2 = androidx.datastore.core.Message("msg_${nextMessageId++}", conv1Id, "currentUser_fake_id", "userB_fake_id", "Hi! How are you? (Fake)", System.currentTimeMillis() - 50000, true) // Current user sent, so read by them
-                val msg3 = androidx.datastore.core.Message("msg_${nextMessageId++}", conv2Id, "userC_fake_id", "currentUser_fake_id", "Interested in your course. (Fake)", System.currentTimeMillis() - 20000, false)
+                val msg3 = androidx.datastore.core.Message("msg_${nextMessageId++}", conv2Id, "userC_fake_id", "currentUser_fake_id", "Interested in  course. (Fake)", System.currentTimeMillis() - 20000, false)
 
                 fakeMessages[conv1Id]?.addAll(listOf(msg1, msg2))
                 fakeMessages[conv2Id]?.add(msg3)
@@ -167,7 +167,7 @@ class FakeApiService : ApiService { // Implements the original ApiService interf
             // Assuming "currentUser_fake_id" is the one fetching these messages
             fakeMessages[conversationId]?.forEach { message ->
                 if (message.receiverId == "currentUser_fake_id") {
-                    // In a real scenario, you'd update the message object itself.
+                    // In a real scenario, update the message object itself.
                     // For simplicity here, we're just returning them as is, but a real fake might update isRead.
                 }
             }

@@ -16,7 +16,7 @@ import com.project.skill_hunt.ui.theme.SkillHuntTheme
 
 class tempoMainActivity : ComponentActivity() {
     // Keep factories as properties if they need to be accessed by multiple composables directly
-    // or pass them down through AppNavHost constructor if that's cleaner for your setup.
+    // or pass them down through AppNavHost constructor if that's cleaner for  setup.
     private lateinit var authVmFactory: AuthViewModelFactory
     private lateinit var createCourseVmFactory: CreateCourseViewModelFactory
     // Add factory for BrowseListingsViewModel later

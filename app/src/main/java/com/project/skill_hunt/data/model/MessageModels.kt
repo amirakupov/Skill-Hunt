@@ -1,11 +1,11 @@
-package com.project.skill_hunt.data.model // Or your chosen model package
+package com.project.skill_hunt.data.model // Or  chosen model package
 
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class ConversationSnippet( // For displaying a list of conversations
     val conversationId: String,
-    val otherUserId: String, // The ID of the user you're talking to
+    val otherUserId: String, // The ID of the user talking to
     val otherUserName: String, // Display name of the other user
     val otherUserAvatarUrl: String?, // Optional
     val lastMessage: String, // Snippet of the last message

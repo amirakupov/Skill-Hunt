@@ -4,8 +4,8 @@
 # Copyright 2015 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# may not use this file except in compliance with the License.
+# may obtain a copy of the License at
 #
 #      https://www.apache.org/licenses/LICENSE-2.0
 #
@@ -43,7 +43,7 @@ cd "$SAVED" >/dev/null
 APP_NAME="Gradle"
 APP_BASE_NAME=`basename "$0"`
 
-# Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+# Add default JVM options here. can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
 DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
 
 # Use the maximum available, or set MAX_FD != -1 to use that value.
@@ -94,15 +94,15 @@ if [ -n "$JAVA_HOME" ] ; then
     if [ ! -x "$JAVACMD" ] ; then
         die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
 
-Please set the JAVA_HOME variable in your environment to match the
-location of your Java installation."
+Please set the JAVA_HOME variable in  environment to match the
+location of  Java installation."
     fi
 else
     JAVACMD="java"
-    which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+    which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in  PATH.
 
-Please set the JAVA_HOME variable in your environment to match the
-location of your Java installation."
+Please set the JAVA_HOME variable in  environment to match the
+location of  Java installation."
 fi
 
 # Increase the maximum file descriptors if we can.
