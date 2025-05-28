@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Skill-Hunt"
 include(":app")
-include(":backend")
+//tempo include(":backend")

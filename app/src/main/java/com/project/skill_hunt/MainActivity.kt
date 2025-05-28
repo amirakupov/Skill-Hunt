@@ -1,3 +1,5 @@
+package com.project.skill_hunt.data.model
+
 // In MainActivity.kt
 import android.os.Bundle
 import androidx.activity.compose.setContent
