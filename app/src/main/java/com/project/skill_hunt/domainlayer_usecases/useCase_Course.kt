@@ -1,7 +1,7 @@
 package com.project.skill_hunt.domain.usecase.course // Adjust package as needed
 
-import com.project.skill_hunt.CourseCreateRequest
-import com.project.skill_hunt.CourseResponse
+import com.project.skill_hunt.data.model.CourseResponse
+import com.project.skill_hunt.data.model.CourseCreateRequest
 import com.project.skill_hunt.data.repository.CourseRepository
 
 class SubmitCourseUseCase(private val courseRepository: CourseRepository) {

@@ -1,8 +1,8 @@
 package com.project.skill_hunt.data.repository
 
-import com.project.skill_hunt.ApiService
-import com.project.skill_hunt.CourseCreateRequest
-import com.project.skill_hunt.CourseResponse
+import com.project.skill_hunt.data.network.ApiService
+import com.project.skill_hunt.data.model.CourseCreateRequest
+import com.project.skill_hunt.data.model.CourseResponse
 
 class CourseRepository(private val api: ApiService) {
 

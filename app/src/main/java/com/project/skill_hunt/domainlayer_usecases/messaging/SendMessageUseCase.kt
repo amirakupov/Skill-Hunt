@@ -1,7 +1,8 @@
-package com.project.skill_hunt.DOMAINlayer_UseCases.Messaging
+package com.project.skill_hunt.domainlayer_usecases.messaging
 
-import com.project.skill_hunt.data.model.Message
+import com.project.skill_hunt.data.model.ConversationSnippet
 import com.project.skill_hunt.data.repository.MessageRepository
+import com.project.skill_hunt.data.model.Message
 
 class SendMessageUseCase(private val messageRepository: MessageRepository) {
     suspend operator fun invoke(receiverUserId: String, content: String): Result<Message> {
