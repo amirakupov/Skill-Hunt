@@ -1,28 +1,25 @@
-package com.project.skill_hunt.data.repository // Its own package
+package com.project.skill_hunt.data.repository
 
-import com.project.skill_hunt.ApiService
 import com.project.skill_hunt.data.model.ConversationSnippet
 import com.project.skill_hunt.data.model.Message
 import com.project.skill_hunt.data.model.SendMessageRequest
-// import okhttp3.ResponseBody // If use it for markConversationAsRead
+import kotlinx.coroutines.flow.Flow
 
-class MessageRepository(private val api: ApiService) { // ApiService should resolve correctly
+interface MessageRepository { // <--- KEY CHANGE: "interface" instead of "class"
 
-    suspend fun getConversationSnippets(): List<ConversationSnippet> {
-        return api.getConversationSnippets()
-    }
+    // Fetches a list of conversation snippets for a given user.
+    // Returns a Flow to observe updates (e.g., new messages arriving).
+    fun getConversationSnippets(userId: String): Flow<List<ConversationSnippet>>
 
-    suspend fun getMessagesForConversation(conversationId: String): List<Message> {
-        return api.getMessagesForConversation(conversationId)
-    }
+    // Fetches a list of messages for a specific conversation.
+    // Returns a Flow to observe updates (e.g., new messages in this conversation).
+    fun getMessagesForConversation(conversationId: String, userId: String): Flow<List<Message>>
 
-    suspend fun sendMessage(receiverUserId: String, content: String): Message {
-        val request = SendMessageRequest(receiverUserId = receiverUserId, content = content)
-        return api.sendMessage(request)
-    }
+    // Sends a message.
+    // Takes a SendMessageRequest which should contain all necessary info.
+    // Returns a Result wrapper which can indicate success (with the sent Message) or failure.
+    suspend fun sendMessage(request: SendMessageRequest): Result<Message>
 
-    // Optional:
-    // suspend fun markConversationAsRead(conversationId: String): ResponseBody {
-    //     return api.markConversationAsRead(conversationId) // Ensure ResponseBody is imported if used
-    // }
+    // Optional: If you need an explicit way to mark a conversation as read.
+    // suspend fun markConversationAsRead(conversationId: String, userId: String): Result<Unit>
 }

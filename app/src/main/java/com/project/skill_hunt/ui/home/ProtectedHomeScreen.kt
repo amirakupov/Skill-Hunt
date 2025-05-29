@@ -1,7 +1,7 @@
 package com.project.skill_hunt.ui.home // Or  chosen package
 
 import androidx.compose.runtime.Composable
-import com.project.skill_hunt.ui.login.AuthViewModel // Import if needed
+
 // Add other necessary imports
 
 @Composable

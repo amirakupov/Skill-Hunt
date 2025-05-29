@@ -5,8 +5,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.project.skill_hunt.ui.login.AuthViewModel
-import com.project.skill_hunt.ui.login.AuthViewModelFactory
 
 @Composable
 fun AppNavHost(

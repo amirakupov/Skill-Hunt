@@ -9,8 +9,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun ChatScreen(
-    viewModelFactory: ChatViewModelFactory, // Matches what AppNavHost provides
-    navUp: () -> Unit // Matches
+    viewModel: ChatViewModel, // Or whatever your ChatViewModel class is named
+    conversationId: String,
+    userName: String,
+    onNavUp: () -> Unit
 ) {
     // Important: ChatViewModel needs SavedStateHandle, which is provided
     // by the viewModel() delegate when used with a factory that supports CreationExtras

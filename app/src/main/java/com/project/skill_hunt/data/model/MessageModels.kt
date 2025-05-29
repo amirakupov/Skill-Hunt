@@ -1,37 +1,32 @@
-package com.project.skill_hunt.data.model // Or  chosen model package
+package com.project.skill_hunt.data.model
 
-import kotlinx.serialization.Serializable
+import java.util.Date
 
-@Serializable
-data class ConversationSnippet( // For displaying a list of conversations
-    val conversationId: String,
-    val otherUserId: String, // The ID of the user talking to
-    val otherUserName: String, // Display name of the other user
-    val otherUserAvatarUrl: String?, // Optional
-    val lastMessage: String, // Snippet of the last message
-    val lastMessageTimestamp: Long, // For sorting and display
+data class ConversationSnippet(
+    val id: String, // <--- MUST BE LOWERCASE 'id'
+    val otherUserId: String,
+    val otherUserName: String,
+    val lastMessage: String,
+    val timestamp: Date,
     val unreadCount: Int
 )
 
-@Serializable
 data class Message(
-    val messageId: String,
+    val id: String, // <--- MUST BE LOWERCASE 'id'
     val conversationId: String,
-    val senderId: String, // ID of the user who sent this message
-    val receiverId: String, // ID of the user who should receive this
-    val content: String, // The text of the message
-    val timestamp: Long, // When the message was sent/received
-    val isRead: Boolean = false // Status for the recipient
+    val senderId: String,
+    val receiverId: String,
+    val content: String,
+    val timestamp: Date,
+    val isRead: Boolean
 )
 
-@Serializable
+// Not strictly needed if ViewModels handle message sending directly with hardcoded logic,
+// but if ChatViewModel's sendMessage needs a structure, you could use this.
+// In MessageModels.kt
 data class SendMessageRequest(
-    val receiverUserId: String, // Who the message is for
-    // val conversationId: String? = null, // Optional: if starting new or adding to existing
-    val content: String
+    val senderId: String, // Make sure this exists if you need it
+    val receiverUserId: String,
+    val content: String,
+    val conversationId: String? // To link to an existing conversation or null for a new one
 )
-
-// No specific response needed for SendMessageRequest usually, a 200 OK or 201 Created is enough.
-// Or the backend could return the created Message object.
-// For now, let's assume the backend returns the newly created Message:
-// typealias SendMessageResponse = Message
