@@ -37,7 +37,7 @@ object ConversationMessagesStore {
      * This will replace any previously held messages.
      *
      * @param conversationId The ID of the conversation these messages belong to.
-     * @param messages The complete list of `MessageDataType` instances for this conversation.
+     * @param messages The complete list of `MessageDataType` instances for this conveursation.
      *                 Ensure the `isSentByViewingUser` flag within each `MessageDataType`
      *                 is correctly set based on the `CurrentLoggedInUser`.
      *
