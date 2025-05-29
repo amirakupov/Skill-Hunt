@@ -2,6 +2,7 @@ package com.project.MessagingFromScratch.ui // Corrected package if it was .view
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier // Added Modifier import if you use it in AppNavigation
+import androidx.compose.runtime.remember // <--- ADD THIS LINE
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -40,7 +41,7 @@ object AppDestinations {
 
 @Composable
 fun AppNavigation(
-    modifier: Modifier = Modifier, // Added modifier parameter
+    modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     conversationListViewModelFactory: ViewModelProvider.Factory,
     chatViewModelFactory: ViewModelProvider.Factory
@@ -48,92 +49,65 @@ fun AppNavigation(
     NavHost(
         navController = navController,
         startDestination = AppDestinations.CONVERSATION_LIST_ROUTE,
-        modifier = modifier // Apply the modifier
+        modifier = modifier
     ) {
         composable(AppDestinations.CONVERSATION_LIST_ROUTE) {
+            // This 'it' (NavBackStackEntry) is available here
             val conversationListViewModel: ConversationListViewModel = viewModel(factory = conversationListViewModelFactory)
             ConversationListScreen(
                 viewModel = conversationListViewModel,
-                // This lambda now matches the expected (String, String, String) -> Unit
                 onNavigateToChat = { convId, otherId, otherName ->
                     navController.navigate(
-                        AppDestinations.buildChatRoute(
-                            conversationId = convId,
-                            otherUserId = otherId,
-                            otherUserName = otherName
-                        )
+                        AppDestinations.buildChatRoute(convId, otherId, otherName)
                     )
                 },
-                // This lambda now matches the expected (String, String) -> Unit
-                // It will call the ViewModel to prepare/get a conversationId first
                 onNavigateToNewChat = { otherId, otherName ->
-                    // This is a placeholder action.
-                    // In a real app, you'd likely:
-                    // 1. Call a method on conversationListViewModel to get or create a conversationId.
-                    // 2. The ViewModel callback would then provide the conversationId to navigate.
-                    // For now, to make it compile, we'll navigate with a "temporary" or "new" ID
-                    // and expect ChatViewModel to handle it. THIS NEEDS PROPER IMPLEMENTATION.
-                    val tempNewConversationId = "NEW_${otherId}" // Placeholder
+                    val tempNewConversationId = "NEW_${otherId}"
                     navController.navigate(
-                        AppDestinations.buildChatRoute(
-                            conversationId = tempNewConversationId, // Or a real ID if ViewModel provides it
-                            otherUserId = otherId,
-                            otherUserName = otherName
-                        )
+                        AppDestinations.buildChatRoute(tempNewConversationId, otherId, otherName)
                     )
                 }
             )
         }
         composable(
-            route = AppDestinations.CHAT_ROUTE_PATTERN, // Use the pattern from AppDestinations
+            route = AppDestinations.CHAT_ROUTE_PATTERN,
             arguments = listOf(
                 navArgument(AppDestinations.ARG_CONVERSATION_ID) { type = NavType.StringType },
                 navArgument(AppDestinations.ARG_OTHER_USER_ID) { type = NavType.StringType },
                 navArgument(AppDestinations.ARG_OTHER_USER_NAME) { type = NavType.StringType }
             )
-        ) { backStackEntry ->
-            // Arguments are non-null in the path, but good practice to handle potential issues if route constructed manually
+        ) { backStackEntry -> // This is the NavBackStackEntry
+
+            // --- Move ViewModel creation logic inside the @Composable scope ---
+            // --- by calling it where ChatScreen is used, or ensure ---
+            // --- the viewModel() call handles remember internally. ---
+
+            // The standard androidx.lifecycle.viewmodel.compose.viewModel() function
+            // IS composable and handles remembering the ViewModel correctly.
+            // The issue might be with how the custom factory is constructed IF
+            // you're trying to remember the factory itself.
+
+            // Option 1: ViewModel directly using the passed chatViewModelFactory
+            // The `viewModel()` composable function from `androidx.lifecycle.viewmodel.compose.viewModel`
+            // is designed to be called directly within a @Composable scope.
+            // If your chatViewModelFactory is correctly set up (e.g., as an
+            // AbstractSavedStateViewModelFactory or a Hilt factory), this is usually enough.
+
+            val chatViewModel: ChatViewModel = viewModel(
+                viewModelStoreOwner = backStackEntry, // Scopes to this navigation destination
+                factory = chatViewModelFactory       // Use the factory passed into AppNavigation
+            )
+
+            // The arguments are typically accessed by the ViewModel itself via SavedStateHandle.
+            // The ChatViewModel's factory should be capable of injecting SavedStateHandle,
+            // or the ChatViewModel should take SavedStateHandle as a constructor parameter.
+            // If you still need to pass them explicitly to a method:
             val conversationId = backStackEntry.arguments?.getString(AppDestinations.ARG_CONVERSATION_ID) ?: "ERROR_NO_CONV_ID"
             val otherUserId = backStackEntry.arguments?.getString(AppDestinations.ARG_OTHER_USER_ID) ?: "ERROR_NO_USER_ID"
             val otherUserName = backStackEntry.arguments?.getString(AppDestinations.ARG_OTHER_USER_NAME) ?: "Unknown"
 
-            // ViewModelProvider.Factory for ChatViewModel's SavedStateHandle arguments
-            val factory = remember(backStackEntry) {
-                object : ViewModelProvider.Factory {
-                    @Suppress("UNCHECKED_CAST")
-                    override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
-                        // This assumes your ChatViewModel takes SavedStateHandle and then uses the factory provided
-                        // If ChatViewModel is complex, use the chatViewModelFactory and ensure it can create
-                        // ChatViewModel with SavedStateHandle correctly (e.g., HiltViewModel).
-                        // For a simple SavedStateHandle access, this direct way is okay.
-                        // However, to use your provided chatViewModelFactory, we'd need ChatViewModel to
-                        // be @AssistedInject or similar for SavedStateHandle if factory doesn't handle it.
-
-                        // Simplest approach if chatViewModelFactory IS a SavedStateViewModelFactory:
-                        // return ViewModelProvider(backStackEntry, chatViewModelFactory).get(ChatViewModel::class.java) as T
-
-                        // Given you pass chatViewModelFactory, it SHOULD be able to create ChatViewModel
-                        // and inject SavedStateHandle. The standard way is using AbstractSavedStateViewModelFactory
-                        // or Hilt. For this example, I'll use the passed factory, assuming it's set up for this.
-                        return chatViewModelFactory.create(ChatViewModel::class.java) as T
-                        // ChatViewModel then accesses args via its own SavedStateHandle
-                    }
-                }
-            }
-            // If chatViewModelFactory is an AbstractSavedStateViewModelFactory or from Hilt, this is simpler:
-            // val chatViewModel: ChatViewModel = viewModel(viewModelStoreOwner = backStackEntry, factory = chatViewModelFactory)
-
-            // Let's assume chatViewModelFactory can provide ChatViewModel and it uses SavedStateHandle internally
-            val chatViewModel: ChatViewModel = viewModel(viewModelStoreOwner = backStackEntry, factory = chatViewModelFactory)
-
-
-            // Load conversation using the arguments.
-            // This assumes ChatViewModel has a method to take these or uses SavedStateHandle directly.
-            // If ChatViewModel constructor uses SavedStateHandle, this explicit call might not be needed
-            // if it observes the SavedStateHandle values.
-            // For now, let's keep it if your ChatViewModel expects this.
+            // This call might be redundant if ChatViewModel uses SavedStateHandle to get args
             chatViewModel.loadConversation(conversationId, otherUserId, otherUserName)
-
 
             ChatScreen(
                 viewModel = chatViewModel,

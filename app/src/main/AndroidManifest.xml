@@ -16,8 +16,8 @@
         android:theme="@style/Theme.SkillHunt"
         tools:targetApi="31">
         <activity
-            android:name=".tempoMainActivity"
-            android:exported="true"
+            android:name="com.project.MessagingFromScratch.MainActivity"
+        android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.SkillHunt">
             <intent-filter>
