@@ -65,8 +65,8 @@ class ConversationListViewModel(
             // which should then flow back and update the snippet list.
             // No direct UI state manipulation here might be needed if the flow from repo is quick.
             messageRepository.markMessagesAsRead(conversationId, readerUserId)
-            // Optionally, if you need a more immediate reflection before the flow updates,
-            // you could manually update the specific snippet here, but it can get complex.
+            // Optionally, if need a more immediate reflection before the flow updates,
+            // could manually update the specific snippet here, but it can get complex.
         }
     }
 

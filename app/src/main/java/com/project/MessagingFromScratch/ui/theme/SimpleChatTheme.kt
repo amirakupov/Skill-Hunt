@@ -85,7 +85,7 @@ fun MessagingFromScratchTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography, // Assuming you have a Typography.kt file
+        typography = Typography, // Assuming have a Typography.kt file
         content = content
     )
 }

@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 
 /**
  * FOR TEAM: Represents a summary of a conversation for the conversation list.
- * Your system will need to map its conversation data to this structure when calling
+ * system will need to map its conversation data to this structure when calling
  * `UserActiveConversations.updateConversationsForUser`.
  */
 data class ConversationData(
@@ -40,7 +40,7 @@ object UserActiveConversations {
     private var currentDataOwnerId: String? = null // Tracks whose conversations these are
 
     /**
-     * FOR TEAM: Call this method from your module to provide the updated list
+     * FOR TEAM: Call this method from module to provide the updated list
      * of conversation summaries for the specified user.
      * This typically happens when the user logs in, or when their conversation list changes
      * (e.g., new message in any chat, new chat started).
@@ -48,7 +48,7 @@ object UserActiveConversations {
      * @param forUserId The ID of the user these conversations belong to (should match `CurrentLoggedInUser`).
      * @param newConversationsList The complete, most recent list of `ConversationData` for that user.
      *
-     * Example from your module:
+     * Example from module:
      *   val loggedInUserId = CurrentLoggedInUser.dataFlow.value?.id
      *   if (loggedInUserId != null) {
      *       val convSummaries = yourBackend.fetchConversationSummariesFor(loggedInUserId) // Returns List<ConversationData>

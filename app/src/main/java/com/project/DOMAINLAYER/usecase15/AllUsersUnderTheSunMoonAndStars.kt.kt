@@ -24,13 +24,13 @@ object AllUsersUnderTheSunMoonAndStars {
     val allUsersDataFlow: StateFlow<List<UserDataType>> = _internalUsersList.asStateFlow()
 
     /**
-     * FOR TEAM: Call this from your module to provide a complete list of known users.
+     * FOR TEAM: Call this from module to provide a complete list of known users.
      * This is useful at app startup or when a full refresh of user data is available.
      * This will replace any existing list.
      *
      * @param users A `List` of `com.project.DOMAINLAYER.UserDataType` instances.
      *
-     * Example from your module:
+     * Example from module:
      *   val allKnownUsers = fetchAllUsersFromOurBackend() // Assuming this returns List<UserDataType>
      *   AllUsersUnderTheSunMoonAndStars.setAllUsers(allKnownUsers)
      */

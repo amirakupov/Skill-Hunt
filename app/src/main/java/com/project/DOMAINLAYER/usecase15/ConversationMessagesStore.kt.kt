@@ -31,7 +31,7 @@ object ConversationMessagesStore {
     val messagesFlow: StateFlow<List<MessageDataType>> = _messagesDataSource.asStateFlow()
 
     /**
-     * FOR TEAM: Call this method from your module to provide the list of messages
+     * FOR TEAM: Call this method from module to provide the list of messages
      * for a specific conversation that the user has navigated to.
      * This typically happens when a user opens a chat screen.
      * This will replace any previously held messages.
@@ -41,10 +41,10 @@ object ConversationMessagesStore {
      *                 Ensure the `isSentByViewingUser` flag within each `MessageDataType`
      *                 is correctly set based on the `CurrentLoggedInUser`.
      *
-     * Example from your module (when a user opens chat "conv789"):
+     * Example from module (when a user opens chat "conv789"):
      *   val loggedInUserId = CurrentLoggedInUser.dataFlow.value?.id
      *   if (loggedInUserId != null) {
-     *       val fetchedMessages = yourBackend.getMessagesFor("conv789") // Returns List of your backend message type
+     *       val fetchedMessages = yourBackend.getMessagesFor("conv789") // Returns List of backend message type
      *       val uiMessages = fetchedMessages.map { backendMsg ->
      *           MessageDataType(
      *               messageId = backendMsg.id,
@@ -77,11 +77,11 @@ object ConversationMessagesStore {
     // This ConversationMessagesStore is primarily for DISPLAYING messages.
     // To SEND a new message:
     // 1. The Messaging UI will capture the user's input.
-    // 2. The Messaging UI will call a dedicated function IN YOUR MODULE/BACKEND SERVICE
+    // 2. The Messaging UI will call a dedicated function IN MODULE/BACKEND SERVICE
     //    (e.g., `yourMessagingService.sendMessage(conversationId, text)`).
-    // 3. YOUR messaging service will handle the actual sending logic (network call, DB save).
-    // 4. After YOUR service confirms the message is processed (e.g., successfully sent or stored),
-    //    YOUR service should then call `ConversationMessagesStore.setMessagesForConversation(...)`
+    // 3. messaging service will handle the actual sending logic (network call, DB save).
+    // 4. After service confirms the message is processed (e.g., successfully sent or stored),
+    //    service should then call `ConversationMessagesStore.setMessagesForConversation(...)`
     //    again with the updated list of messages that includes the new message.
-    // This ensures this store always reflects the latest state as known by your backend.
+    // This ensures this store always reflects the latest state as known by backend.
 }

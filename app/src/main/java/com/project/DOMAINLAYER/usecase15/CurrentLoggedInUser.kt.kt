@@ -27,7 +27,7 @@ object CurrentLoggedInUser {
      * @param newUserData An instance of `com.project.DOMAINLAYER.UserDataType` representing the
      *                    logged-in user, or `null` if the user has logged out.
      *
-     * Example from your module:
+     * Example from module:
      *   // After successful login:
      *   val userDetails = UserDataType(id="user123", displayName="Alice Wonderland", profileImageUrl="url...")
      *   CurrentLoggedInUser.update(userDetails)

@@ -1,4 +1,5 @@
-package com.project.MessagingFromScratch // Or your actual main package for this activity
+// MainActivity.kt
+package com.project.MessagingFromScratch // Or your actual main package
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,16 +13,23 @@ import androidx.lifecycle.ViewModelProvider
 import com.project.MessagingFromScratch.repository.InMemoryMessageRepository // Corrected import
 import com.project.MessagingFromScratch.repository.MessageRepository       // Corrected import
 import com.project.MessagingFromScratch.repository.USER_ID_ME              // Corrected import
-import com.project.MessagingFromScratch.ui.AppNavigation                  // Corrected import
-import com.project.MessagingFromScratch.ui.theme.MessagingFromScratchTheme          // Corrected import (assuming this theme name)
+import com.project.MessagingFromScratch.repository.demo.DemoRepositoryImpl // Import the implementation
+import com.project.MessagingFromScratch.repository.demo.DemoRepository     // Import the interface
+import com.project.MessagingFromScratch.ui.AppNavigation
+import com.project.MessagingFromScratch.ui.theme.MessagingFromScratchTheme
 import com.project.MessagingFromScratch.ui.viewmodel.ChatViewModel
 import com.project.MessagingFromScratch.ui.viewmodel.ConversationListViewModel
 
 class MainActivity : ComponentActivity() {
 
-    // In a real app, use Hilt or another DI framework
+    // 1. Create an instance of DemoRepositoryImpl
+    private val demoRepository: DemoRepository by lazy {
+        DemoRepositoryImpl()
+    }
+
+    // 2. Pass demoRepository to InMemoryMessageRepository
     private val messageRepository: MessageRepository by lazy {
-        InMemoryMessageRepository()
+        InMemoryMessageRepository(demoRepository) // <<< PASS IT HERE
     }
 
     private val conversationListViewModelFactory: ViewModelProvider.Factory by lazy {
@@ -36,7 +44,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MessagingFromScratchTheme { // Apply the custom theme
+            MessagingFromScratchTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

@@ -8,6 +8,13 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.1"
 composeBom = "2024.04.01"
+# --- Hilt and Javax Inject Versions ---
+hilt = "2.51.1" # Or desired Hilt version, e.g., "2.51.1" (check latest)
+javaxInject = "1"
+ksp = "2.0.0-1.0.21" # Use the KSP version compatible with Kotlin 2.0.0
+# Check: https://github.com/google/ksp/releases
+# If using KSP (optional, for better build times than kapt)
+# kotlinKsp = "2.0.0-1.0.21" # Match Kotlin version (e.g., 2.0.0-1.0.21 for Kotlin 2.0.0)
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -24,9 +31,19 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+# --- Hilt and Javax Inject Libraries ---
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" } # For annotation processing
+javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javaxInject" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version = "2.0.0" }
+# --- Hilt Plugin ---
+hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+# If using KSP (optional, for better build times than kapt)
+# kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlinKsp" }
+# google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
