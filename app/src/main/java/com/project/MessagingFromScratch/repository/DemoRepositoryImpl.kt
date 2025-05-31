@@ -1,5 +1,5 @@
 // File: /MessagingFromScratch/repository/demo/DemoRepositoryImpl.kt
-package com.project.MessagingFromScratch.repository.demo
+package com.project.MessagingFromScratch.repository
 
 // ... (other imports: Message, ConversationSnippet, kotlinx.coroutines, Date, UUID, Random)
 import com.project.MessagingFromScratch.data.model.ConversationSnippet

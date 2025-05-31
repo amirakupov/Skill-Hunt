@@ -1,5 +1,5 @@
 // File: /MessagingFromScratch/repository/demo/DemoRepository.kt
-package com.project.MessagingFromScratch.repository.demo
+package com.project.MessagingFromScratch.repository
 
 import com.project.MessagingFromScratch.data.model.ConversationSnippet
 import com.project.MessagingFromScratch.data.model.Message

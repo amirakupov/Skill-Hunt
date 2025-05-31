@@ -1,7 +1,8 @@
+package com.project.DOMAINLAYER.data.remote.dto
+
 // Expected by: BackendApiRepository
 // To be defined in: com.project.DOMAINLAYER.data.remote.dto.ConversationBackendDto.kt
 
-package com.project.DOMAINLAYER.data.remote.dto
 
 // @Serializable
 data class ConversationBackendDto(
