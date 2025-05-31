@@ -1,5 +1,6 @@
-package com.project.DOMAINLAYER
+package com.project.DOMAINLAYER.repository.usecases
 
 class addressing {
     //should we need this I'll elaborate it
+
 }

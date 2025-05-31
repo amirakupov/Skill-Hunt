@@ -3,7 +3,10 @@ package com.project.DOMAINLAYER.usecase15
 // File: Skill-Hunt/app/src/main/java/com/project/DOMAINLAYER/usecase15/AllUsersUnderTheSunMoonAndStars.kt
 
 import com.project.DOMAINLAYER.UserDataType
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -13,15 +16,16 @@ import kotlinx.coroutines.flow.asStateFlow
  * in contexts like messaging, course lists, etc.
  * Modules responsible for user management or fetching user lists should populate this.
  */
-object AllUsersUnderTheSunMoonAndStars {
+@Singleton
+class AllUsersUnderTheSunMoonAndStars @Inject constructor(
+    domainDataRepository: DomainDataRepository // Injected
+) {
+    val allUsersDataFlow: StateFlow<List<UserDataType>> =
+        domainDataRepository.observeAllUsers()
+            .stateIn(CoroutineScope(Dispatchers.Default),
+                SharingStarted.WhileSubscribed(5000), emptyList())
+    // ...
 
-    private val _internalUsersList = MutableStateFlow<List<UserDataType>>(emptyList())
-
-    /**
-     * MESSAGING MODULE USE: Observes this Flow to get a list of all known users, or uses
-     * `findUserById` for specific lookups.
-     */
-    val allUsersDataFlow: StateFlow<List<UserDataType>> = _internalUsersList.asStateFlow()
 
     /**
      * FOR TEAM: Call this from module to provide a complete list of known users.
