@@ -1,6 +1,7 @@
 package com.project.skill_hunt.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -21,16 +22,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.project.skill_hunt.R
 import com.project.skill_hunt.ui.login.AuthViewModel
+import com.project.skill_hunt.ui.theme.lighterBlue
 import kotlinx.coroutines.launch
 
 private val lightBlue = Color(0xFFD1EBF9)
 
 @Composable
-fun LoginScreen(
-    vm: AuthViewModel,
-    navToHome: () -> Unit,
-    navToRegister: () -> Unit
-) {
+fun LoginScreen(vm: AuthViewModel, navToHome: () -> Unit, navToRegister: () -> Unit) {
     var email by remember { mutableStateOf("") }
     var pass by remember { mutableStateOf("") }
     val err = vm.errorMessage
@@ -42,6 +40,7 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(lighterBlue)
             .padding(horizontal = 16.dp)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
@@ -57,22 +56,10 @@ fun LoginScreen(
 
         Spacer(Modifier.height(16.dp))
 
-        Text(
-            "LOGIN",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 24.dp)
-        )
+        Text("LOGIN", fontSize = 28.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 24.dp))
 
-        OutlinedTextField(
-            email,
-            { email = it },
-            label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth()
-        )
-
+        OutlinedTextField(email, { email = it }, label = { Text("Email") }, modifier = Modifier.fillMaxWidth())
         Spacer(Modifier.height(8.dp))
-
         OutlinedTextField(
             pass,
             { pass = it },
@@ -85,7 +72,7 @@ fun LoginScreen(
 
         Button(
             onClick = { vm.login(email, pass) },
-            colors = ButtonDefaults.buttonColors(containerColor = lightBlue),
+            colors = ButtonDefaults.buttonColors(containerColor = lightBlue), // Button
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Log In")
@@ -99,16 +86,13 @@ fun LoginScreen(
         Spacer(Modifier.height(16.dp))
 
         TextButton(onClick = navToRegister) {
-            Text("Don't have an account? Sign up", color = lightBlue)
+            Text("Don't have an account? Sign up", color = Color.Black)
         }
     }
 }
 
 @Composable
-fun RegisterScreen(
-    vm: AuthViewModel,
-    navToLogin: () -> Unit
-) {
+fun RegisterScreen(vm: AuthViewModel, navToLogin: () -> Unit) {
     var email by remember { mutableStateOf("") }
     var pass by remember { mutableStateOf("") }
     val err = vm.errorMessage
@@ -116,6 +100,7 @@ fun RegisterScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(lighterBlue)
             .padding(horizontal = 16.dp)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
@@ -131,22 +116,10 @@ fun RegisterScreen(
 
         Spacer(Modifier.height(16.dp))
 
-        Text(
-            "SIGN UP",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 24.dp)
-        )
+        Text("SIGN UP", fontSize = 28.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 24.dp))
 
-        OutlinedTextField(
-            email,
-            { email = it },
-            label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth()
-        )
-
+        OutlinedTextField(email, { email = it }, label = { Text("Email") }, modifier = Modifier.fillMaxWidth())
         Spacer(Modifier.height(8.dp))
-
         OutlinedTextField(
             pass,
             { pass = it },
@@ -159,7 +132,7 @@ fun RegisterScreen(
 
         Button(
             onClick = { vm.register(email, pass) },
-            colors = ButtonDefaults.buttonColors(containerColor = lightBlue),
+            colors = ButtonDefaults.buttonColors(containerColor = lightBlue), // Button
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Register")
@@ -173,7 +146,7 @@ fun RegisterScreen(
         Spacer(Modifier.height(16.dp))
 
         TextButton(onClick = navToLogin) {
-            Text("Already have an account? Log in", color = lightBlue)
+            Text("Already have an account? Log in", color = Color.Black)
         }
     }
 }
@@ -193,7 +166,7 @@ fun ProtectedHomeScreen(
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            ModalDrawerSheet {
+            ModalDrawerSheet(modifier = Modifier.background(lighterBlue)) {
                 Spacer(Modifier.height(24.dp))
                 Row(
                     modifier = Modifier.padding(16.dp),
@@ -202,58 +175,44 @@ fun ProtectedHomeScreen(
                     Image(
                         painter = painterResource(id = R.drawable.homedrawerplaceholder),
                         contentDescription = "Profile Picture",
-                        modifier = Modifier
-                            .size(48.dp)
-                            .clip(CircleShape)
+                        modifier = Modifier.size(48.dp).clip(CircleShape)
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     Column {
-                        Text("Username Placeholder", fontWeight = FontWeight.Bold)
+                        Text("Username Placeholder", fontWeight = FontWeight.Bold)              // Placeholder change
                         Text("user@email.com", fontSize = 12.sp)
                     }
                 }
                 Divider()
-                NavigationDrawerItem(
-                    label = { Text("Home") },
-                    selected = false,
-                    onClick = { scope.launch { drawerState.close() } }
-                )
-                NavigationDrawerItem(
-                    label = { Text("Browse Courses") },
-                    selected = false,
-                    onClick = {
-                        scope.launch {
-                            drawerState.close()
-                            navToListings()
-                        }
+                NavigationDrawerItem(label = { Text("Home") }, selected = false, onClick = { scope.launch { drawerState.close() } })
+                NavigationDrawerItem(label = { Text("Browse Courses") }, selected = false, onClick = {
+                    scope.launch {
+                        drawerState.close()
+                        navToListings()
                     }
-                )
-                NavigationDrawerItem(
-                    label = { Text("My Profile") },
-                    selected = false,
-                    onClick = {
-                        scope.launch {
-                            drawerState.close()
-                            navToCourses()
-                        }
+                })
+                NavigationDrawerItem(label = { Text("My Profile") }, selected = false, onClick = {
+                    scope.launch {
+                        drawerState.close()
+                        navToCourses()
                     }
-                )
-                NavigationDrawerItem(
-                    label = { Text("Sign Out") },
-                    selected = false,
-                    onClick = {
-                        scope.launch {
-                            vm.logout(navToLogin)
-                        }
+                })
+                NavigationDrawerItem(label = { Text("Sign Out") }, selected = false, onClick = {
+                    scope.launch {
+                        vm.logout(navToLogin)
                     }
-                )
+                })
             }
         },
         content = {
             Scaffold(
+                containerColor = lighterBlue,
                 topBar = {
                     TopAppBar(
                         title = {},
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = lighterBlue
+                        ),
                         navigationIcon = {
                             IconButton(onClick = { scope.launch { drawerState.open() } }) {
                                 Icon(Icons.Filled.Menu, contentDescription = "Menu")
@@ -266,16 +225,16 @@ fun ProtectedHomeScreen(
                         modifier = Modifier
                             .padding(padding)
                             .fillMaxSize()
+                            .background(lighterBlue)
                             .padding(horizontal = 24.dp),
                         verticalArrangement = Arrangement.SpaceEvenly,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Spacer(Modifier.height(16.dp))
                         Image(
                             painter = painterResource(id = R.drawable.logo),
                             contentDescription = "Logo",
                             modifier = Modifier
-                                .size(200.dp)
+                                .size(220.dp)
                                 .clip(RoundedCornerShape(32.dp))
                         )
 
@@ -286,23 +245,19 @@ fun ProtectedHomeScreen(
                         ) {
                             Button(
                                 onClick = { navToListings() },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(64.dp),
-                                shape = RoundedCornerShape(12.dp),
+                                modifier = Modifier.fillMaxWidth().height(64.dp),
+                                shape = RoundedCornerShape(10.dp),
                                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF546E91))
                             ) {
-                                Text("Browse Skill Courses", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+                                Text("Browse Skill Courses", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                             }
                             Button(
                                 onClick = { navToAddCourse() },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(64.dp),
-                                shape = RoundedCornerShape(12.dp),
+                                modifier = Modifier.fillMaxWidth().height(64.dp),
+                                shape = RoundedCornerShape(10.dp),
                                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF546E91))
                             ) {
-                                Text("Offer a Skill Course", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+                                Text("Offer a Skill Course", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                             }
                         }
                     }

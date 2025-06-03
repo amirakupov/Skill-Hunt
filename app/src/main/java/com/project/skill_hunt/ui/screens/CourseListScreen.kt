@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.project.skill_hunt.ui.CourseListViewModel
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.text.style.TextOverflow
 
 
@@ -38,7 +39,7 @@ fun CourseListScreen(
             verticalAlignment   = Alignment.CenterVertically
         ) {
             Text("My Courses", style = MaterialTheme.typography.headlineSmall)
-            Button(onClick = onAddCourse) {
+            Button(onClick = onAddCourse, shape = RoundedCornerShape(12.dp)) {
                 Text("Add")
             }
         }

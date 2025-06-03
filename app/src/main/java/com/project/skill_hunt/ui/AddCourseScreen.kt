@@ -1,26 +1,13 @@
 package com.project.skill_hunt.ui
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.shape.RoundedCornerShape
 import com.project.skill_hunt.data.model.AddCourseRequest
 import com.project.skill_hunt.data.model.CourseResponse
 
@@ -43,39 +30,82 @@ fun AddCourseScreen(
         success?.let { onSuccess(it) }
     }
 
-    Column(Modifier.padding(16.dp)) {
-        Text("Add New Mentoring Course", style = MaterialTheme.typography.headlineSmall)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp, vertical = 24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            "Add New Mentoring Course",
+            style = MaterialTheme.typography.headlineSmall.copy(fontSize = 20.sp)
+        )
+        Spacer(Modifier.height(24.dp))
+
+        OutlinedTextField(
+            value = title, onValueChange = { title = it },
+            label = { Text("Title") },
+            modifier = Modifier.fillMaxWidth()
+        )
         Spacer(Modifier.height(8.dp))
+        OutlinedTextField(
+            value = category, onValueChange = { category = it },
+            label = { Text("Category") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(Modifier.height(8.dp))
+        OutlinedTextField(
+            value = description, onValueChange = { description = it },
+            label = { Text("Description") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(Modifier.height(8.dp))
+        OutlinedTextField(
+            value = skillLevel, onValueChange = { skillLevel = it },
+            label = { Text("Skill Level") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(Modifier.height(16.dp))
 
-        OutlinedTextField(title, { title = it }, label = { Text("Title") })
-        OutlinedTextField(category, { category = it }, label = { Text("Category") })
-        OutlinedTextField(description, { description = it }, label = { Text("Description") })
-        OutlinedTextField(skillLevel, { skillLevel = it }, label = { Text("Skill Level") })
-
-        // Location toggle
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text("Location:")
             Spacer(Modifier.width(8.dp))
-            RadioButton(selected = locationType=="online", onClick={locationType="online"})
+            RadioButton(selected = locationType == "online", onClick = { locationType = "online" })
             Text("Online")
             Spacer(Modifier.width(8.dp))
-            RadioButton(selected = locationType=="meet-up", onClick={locationType="meet-up"})
+            RadioButton(selected = locationType == "meet-up", onClick = { locationType = "meet-up" })
             Text("Meet-Up")
         }
+        Spacer(Modifier.height(8.dp))
 
-        OutlinedTextField(availability, { availability = it }, label = { Text("Availability") })
-        OutlinedTextField(contactInfo, { contactInfo = it }, label = { Text("Contact Info") })
+        OutlinedTextField(
+            value = availability, onValueChange = { availability = it },
+            label = { Text("Availability") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(Modifier.height(8.dp))
+        OutlinedTextField(
+            value = contactInfo, onValueChange = { contactInfo = it },
+            label = { Text("Contact Info") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(Modifier.height(32.dp))
 
-        Spacer(Modifier.height(16.dp))
-        Button(onClick = {
-            vm.addCourse(
-                AddCourseRequest(
-                title, category, description,
-                skillLevel, locationType,
-                availability, contactInfo
-            )
-            )
-        }, Modifier.fillMaxWidth()) {
+        Button(
+            onClick = {
+                vm.addCourse(
+                    AddCourseRequest(
+                        title, category, description,
+                        skillLevel, locationType,
+                        availability, contactInfo
+                    )
+                )
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp),
+            shape = RoundedCornerShape(12.dp)
+        ) {
             Text("Submit")
         }
 
