@@ -8,16 +8,16 @@ data class AddCourseRequest(
     val title: String,
     val category: String,
     val description: String,
-    val skillLevel: String,            // e.g. "Beginner", "Intermediate", "Advanced"
-    val locationType: String,          // "meet-up" or "online"
-    val availability: String,          // freeform or structured (e.g. "Weekends")
-    val contactInfo: String            // e.g. email or phone
+    val skillLevel: String,
+    val locationType: String,
+    val availability: String,
+    val contactInfo: String
 )
 
 @Serializable
 data class CourseResponse(
     val id: Long,
-    val userEmail: String,             // from JWT
+    val userEmail: String,
     val title: String,
     val category: String,
     val description: String,
@@ -25,5 +25,5 @@ data class CourseResponse(
     val locationType: String,
     val availability: String,
     val contactInfo: String,
-    val createdAt: String              // ISO timestamp
+    val createdAt: String
 )

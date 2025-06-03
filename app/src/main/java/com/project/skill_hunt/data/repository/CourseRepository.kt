@@ -9,4 +9,6 @@ class CourseRepository(private val api: ApiService) {
         api.addCourse(req)
     suspend fun getCourses(): List<CourseResponse> =
         api.getCourses()
+    suspend fun getAllCourses(): List<CourseResponse> =
+        api.getAllCourses()
 }

@@ -14,4 +14,7 @@ class CourseService(private val repo: ICourseRepository) {
         val email = principal.payload.getClaim("email").asString()
         return repo.getCoursesByUser(email)
     }
+    fun getAllCourses(): List<CourseResponse> {
+        return repo.getAllCourses()
+    }
 }

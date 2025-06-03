@@ -16,6 +16,7 @@ import com.project.skill_hunt.data.network.RetrofitInstance
 import com.project.skill_hunt.data.repository.AuthRepository
 import com.project.skill_hunt.data.repository.CourseRepository
 import com.project.skill_hunt.ui.AppNavHost
+import com.project.skill_hunt.ui.BrowseCoursesViewModelFactory
 import com.project.skill_hunt.ui.CourseListViewModelFactory
 import com.project.skill_hunt.ui.CourseViewModel
 import com.project.skill_hunt.ui.CourseViewModelFactory
@@ -34,10 +35,15 @@ class MainActivity : ComponentActivity() {
         val courseRepo      = CourseRepository(api)
         val courseVmFactory = CourseViewModelFactory(courseRepo)
         val listVmFactory    = CourseListViewModelFactory(courseRepo)
+        val browseVmFactory      = BrowseCoursesViewModelFactory(courseRepo)
+
 
         setContent {
             SkillHuntTheme {
-                AppNavHost(authVmFactory = authVmFactory, courseListVmFactory = listVmFactory, courseVmFactory = courseVmFactory)
+                AppNavHost(authVmFactory = authVmFactory,
+                    courseListVmFactory = listVmFactory,
+                    courseVmFactory = courseVmFactory,
+                    browseVmFactory     = browseVmFactory)
 
             }
         }

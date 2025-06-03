@@ -53,7 +53,7 @@ object JwtConfig {
 }
 
 fun Application.module() {
-    // init DB, JSON, your AuthService as before…
+
     DatabaseFactory.init()
     install(ContentNegotiation) { json() }
     val authService = AuthService(UserRepositoryImpl)
@@ -86,6 +86,10 @@ fun Application.module() {
                 // issue JWT right here:
                 val token = JwtConfig.makeToken(loginResp.email)
                 call.respond(LoginResponseWithToken(email = loginResp.email, token = token))
+            }
+            get("/courses/all") {
+                val all = courseService.getAllCourses()
+                call.respond(all)
             }
 
             // any route inside this block requires a valid JWT:

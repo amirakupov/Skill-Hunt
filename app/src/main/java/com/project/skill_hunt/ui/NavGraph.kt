@@ -1,12 +1,20 @@
 package com.project.skill_hunt.ui
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.project.skill_hunt.ui.login.AuthViewModel
 import com.project.skill_hunt.ui.login.AuthViewModelFactory
+import com.project.skill_hunt.ui.screens.AddCourseScreen
+import com.project.skill_hunt.ui.screens.BrowseCoursesScreen
 import com.project.skill_hunt.ui.screens.CourseListScreen
 import com.project.skill_hunt.ui.screens.SplashScreen
 
@@ -14,7 +22,8 @@ import com.project.skill_hunt.ui.screens.SplashScreen
 fun AppNavHost(
     authVmFactory: AuthViewModelFactory,
     courseVmFactory: CourseViewModelFactory,
-    courseListVmFactory: CourseListViewModelFactory
+    courseListVmFactory: CourseListViewModelFactory,
+    browseVmFactory: BrowseCoursesViewModelFactory
 ) {
     val navController = rememberNavController()
     val authVm: AuthViewModel = viewModel(factory = authVmFactory)
@@ -33,6 +42,8 @@ fun AppNavHost(
                     popUpTo("register") { inclusive = true }
                 }
             }
+            Spacer(Modifier.height(8.dp))
+            // “Browse Courses” for unauthenticated
         }
 
         composable("login") {
@@ -47,6 +58,8 @@ fun AppNavHost(
                     navController.navigate("register")
                 }
             )
+            Spacer(Modifier.height(8.dp))
+            // “Browse Courses” for unauthenticated
         }
 
         composable("home") {
@@ -68,6 +81,10 @@ fun AppNavHost(
                 }
             )
         }
+        composable("browse") {
+            val browseVm: BrowseCoursesViewModel = viewModel(factory = browseVmFactory)
+            BrowseCoursesScreen(browseVm)
+        }
 
         composable("courses") {
             val listVm: CourseListViewModel = viewModel(factory = courseListVmFactory)
@@ -84,12 +101,6 @@ fun AppNavHost(
             AddCourseScreen(addVm) {
                 navController.popBackStack()
             }
-        }
-
-        // Placeholder for future implementation
-        composable("browse") {
-            // TODO: Replace with real BrowseCourseScreen when implemented
-            PlaceholderScreen("Browse Courses")
         }
     }
 }

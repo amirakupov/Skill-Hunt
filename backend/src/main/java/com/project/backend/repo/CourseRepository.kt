@@ -6,11 +6,13 @@ import com.project.backend.db.Courses
 import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.insertAndGetId
 import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
 interface ICourseRepository {
     fun addCourse(req: AddCourseRequest, userEmail: String): CourseResponse
     fun getCoursesByUser(userEmail: String): List<CourseResponse>
+    fun getAllCourses(): List<CourseResponse>
 }
 
 object CourseRepositoryImpl : ICourseRepository {
@@ -44,6 +46,25 @@ object CourseRepositoryImpl : ICourseRepository {
     override fun getCoursesByUser(userEmail: String) = transaction {
         Courses
             .select { Courses.userEmail eq userEmail }
+            .orderBy(Courses.createdAt, SortOrder.DESC)
+            .map {
+                CourseResponse(
+                    id           = it[Courses.id].value,
+                    userEmail    = it[Courses.userEmail],
+                    title        = it[Courses.title],
+                    category     = it[Courses.category],
+                    description  = it[Courses.description],
+                    skillLevel   = it[Courses.skillLevel],
+                    locationType = it[Courses.locationType],
+                    availability = it[Courses.availability],
+                    contactInfo  = it[Courses.contactInfo],
+                    createdAt    = it[Courses.createdAt].toString()
+                )
+            }
+    }
+    override fun getAllCourses(): List<CourseResponse> = transaction {
+        Courses
+            .selectAll()
             .orderBy(Courses.createdAt, SortOrder.DESC)
             .map {
                 CourseResponse(
