@@ -79,5 +79,6 @@ dependencies {
     implementation ("com.squareup.okhttp3:okhttp:4.10.0"                                       )
     implementation ("com.squareup.retrofit2:retrofit:2.9.0"                   )
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"  )
+    implementation ("androidx.compose.material:material-icons-extended:1.5.1")
 
 }
