@@ -1,7 +1,7 @@
-package com.project.MessagingFromScratch.ui // Corrected package if it was .viewmodel
+package com.project.MessagingFromScratch.ui // Corrected package if it was .viewmodelAdd commentMore actions
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier // Added Modifier import if use it in AppNavigation
+import androidx.compose.ui.Modifier // Added Modifier import if you use it in AppNavigation
 import androidx.compose.runtime.remember // <--- ADD THIS LINE
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -34,6 +34,7 @@ object AppDestinations {
     fun buildChatRoute(conversationId: String, otherUserId: String, otherUserName: String): String {
         // Simple string concatenation, assuming no special characters in these IDs/names that need encoding for path segments.
         // If names can have '/' or '?', URL encoding would be needed for the otherUserName path segment.
+        // For simplicity, direct concatenation is used as per your AppDestinations.chatRoute example.
         // For simplicity, direct concatenation is used as per AppDestinations.chatRoute example.
         return "$CHAT_ROUTE_PREFIX/$conversationId/$otherUserId/$otherUserName"
     }
@@ -85,11 +86,13 @@ fun AppNavigation(
             // The standard androidx.lifecycle.viewmodel.compose.viewModel() function
             // IS composable and handles remembering the ViewModel correctly.
             // The issue might be with how the custom factory is constructed IF
+            // you're trying to remember the factory itself.
             // trying to remember the factory itself.
 
             // Option 1: ViewModel directly using the passed chatViewModelFactory
             // The `viewModel()` composable function from `androidx.lifecycle.viewmodel.compose.viewModel`
             // is designed to be called directly within a @Composable scope.
+            // If your chatViewModelFactory is correctly set up (e.g., as an
             // If chatViewModelFactory is correctly set up (e.g., as an
             // AbstractSavedStateViewModelFactory or a Hilt factory), this is usually enough.
 
@@ -101,6 +104,7 @@ fun AppNavigation(
             // The arguments are typically accessed by the ViewModel itself via SavedStateHandle.
             // The ChatViewModel's factory should be capable of injecting SavedStateHandle,
             // or the ChatViewModel should take SavedStateHandle as a constructor parameter.
+            // If you still need to pass them explicitly to a method:
             // If still need to pass them explicitly to a method:
             val conversationId = backStackEntry.arguments?.getString(AppDestinations.ARG_CONVERSATION_ID) ?: "ERROR_NO_CONV_ID"
             val otherUserId = backStackEntry.arguments?.getString(AppDestinations.ARG_OTHER_USER_ID) ?: "ERROR_NO_USER_ID"
@@ -114,5 +118,4 @@ fun AppNavigation(
                 onNavigateBack = { navController.popBackStack() }
             )
         }
-    }
-}
+    }}
