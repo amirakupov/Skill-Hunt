@@ -6,7 +6,7 @@ import java.util.UUID
 data class Message(
     val id: String = UUID.randomUUID().toString(),
     val conversationId: String, // Combination of two user IDs, sorted
-    val senderId: String,
+    val senderId: String
     val receiverId: String,
     val text: String,
     val timestamp: Date = Date(),
