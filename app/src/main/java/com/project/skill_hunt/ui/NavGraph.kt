@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.project.skill_hunt.ui.login.AuthViewModel
 import com.project.skill_hunt.ui.login.AuthViewModelFactory
 import com.project.skill_hunt.ui.screens.CourseListScreen
+import com.project.skill_hunt.ui.screens.SplashScreen
 
 @Composable
 fun AppNavHost(
@@ -19,9 +20,13 @@ fun AppNavHost(
     val authVm: AuthViewModel = viewModel(factory = authVmFactory)
 
     NavHost(
-        navController,
-        startDestination = if (authVm.authToken != null) "home" else "login"
+        navController = navController,
+        startDestination = "splash"
     ) {
+        composable("splash") {
+            SplashScreen(navController)
+        }
+
         composable("register") {
             RegisterScreen(authVm) {
                 navController.navigate("login") {
@@ -57,6 +62,9 @@ fun AppNavHost(
                 },
                 navToCourses = {
                     navController.navigate("courses")
+                },
+                navToListings = {
+                    navController.navigate("browse")
                 }
             )
         }
@@ -74,10 +82,14 @@ fun AppNavHost(
         composable("addCourse") {
             val addVm: CourseViewModel = viewModel(factory = courseVmFactory)
             AddCourseScreen(addVm) {
-                // when done, go back to the courses list
                 navController.popBackStack()
             }
         }
+
+        // Placeholder for future implementation
+        composable("browse") {
+            // TODO: Replace with real BrowseCourseScreen when implemented
+            PlaceholderScreen("Browse Courses")
+        }
     }
 }
-

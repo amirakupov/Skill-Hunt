@@ -19,6 +19,9 @@ fun Route.userRoutes(auth: AuthService) {
                 call.respond(HttpStatusCode.BadRequest, e.message ?: "Invalid input")
             } catch (e: IllegalStateException) {
                 call.respond(HttpStatusCode.Conflict, e.message ?: "Conflict")
+            } catch (e: Exception) {
+                e.printStackTrace() // 🔍 Full exception in logs
+                call.respond(HttpStatusCode.InternalServerError, e.message ?: "Unexpected error")
             }
         }
 
@@ -31,6 +34,9 @@ fun Route.userRoutes(auth: AuthService) {
                 call.respond(HttpStatusCode.BadRequest, "Invalid input")
             } catch (e: IllegalStateException) {
                 call.respond(HttpStatusCode.Unauthorized, e.message ?: "Unauthorized")
+            } catch (e: Exception) {
+                e.printStackTrace() // 🔍 Full exception in logs
+                call.respond(HttpStatusCode.InternalServerError, e.message ?: "Unexpected error")
             }
         }
     }
