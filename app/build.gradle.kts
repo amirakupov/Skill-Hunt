@@ -109,7 +109,6 @@ dependencies {
     // ksp(libs.hilt.compiler)
     // kapt(libs.hilt.compiler) // REMOVE THIS
     ksp(libs.hilt.compiler)
-
     // --- Javax Inject (for @Inject annotation) ---
     implementation(libs.javax.inject) // This provides the @Inject annotation
 }

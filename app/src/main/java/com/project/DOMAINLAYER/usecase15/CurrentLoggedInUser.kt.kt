@@ -29,7 +29,7 @@ object CurrentLoggedInUser {
      *
      * Example from module:
      *   // After successful login:
-     *   val userDetails = UserDataType(id="user123", displayName="Alice Wonderland", profileImageUrl="url...")
+     *   val userDetails = UserDataType(id="user123", displayName="Charlie  Wonderland", profileImageUrl="url...")
      *   CurrentLoggedInUser.update(userDetails)
      *
      *   // After logout:

@@ -26,8 +26,8 @@ class DemoRepositoryImpl : DemoRepository {
 
         val DEMO_USER_NAMES = mapOf(
             DEMO_USER_ID_ME to "Me (- Demo)",
-            DEMO_USER_ID_OTHER_1 to "Alice (Demo)",
-            DEMO_USER_ID_OTHER_2 to "Bob (Demo)"
+            DEMO_USER_ID_OTHER_1 to "Charlie Cooking  (Demo)",
+            DEMO_USER_ID_OTHER_2 to "Bob the Builder (Demo)"
         )
     }
 
@@ -62,11 +62,11 @@ class DemoRepositoryImpl : DemoRepository {
         val conv2Id = generateConversationIdInternal(DEMO_USER_ID_ME, DEMO_USER_ID_OTHER_2)
 
         val initialMessages = mutableListOf(
-            Message(id = UUID.randomUUID().toString(), conversationId = conv1Id, senderId = DEMO_USER_ID_ME, receiverId = DEMO_USER_ID_OTHER_1, text = "Hello Alice!", timestamp = Date(System.currentTimeMillis() - 5000000), isRead = true, senderName = DEMO_USER_NAMES[DEMO_USER_ID_ME]),
+            Message(id = UUID.randomUUID().toString(), conversationId = conv1Id, senderId = DEMO_USER_ID_ME, receiverId = DEMO_USER_ID_OTHER_1, text = "Hello Charlie Cooking !", timestamp = Date(System.currentTimeMillis() - 5000000), isRead = true, senderName = DEMO_USER_NAMES[DEMO_USER_ID_ME]),
             Message(id = UUID.randomUUID().toString(), conversationId = conv1Id, senderId = DEMO_USER_ID_OTHER_1, receiverId = DEMO_USER_ID_ME, text = "Hi Me!", timestamp = Date(System.currentTimeMillis() - 4000000), isRead = true, senderName = DEMO_USER_NAMES[DEMO_USER_ID_OTHER_1]),
             Message(id = UUID.randomUUID().toString(), conversationId = conv1Id, senderId = DEMO_USER_ID_ME, receiverId = DEMO_USER_ID_OTHER_1, text = "How are doing?", timestamp = Date(System.currentTimeMillis() - 3000000), isRead = false, senderName = DEMO_USER_NAMES[DEMO_USER_ID_ME]),
             Message(id = UUID.randomUUID().toString(), conversationId = conv2Id, senderId = DEMO_USER_ID_OTHER_2, receiverId = DEMO_USER_ID_ME, text = "Hey, what's up?", timestamp = Date(System.currentTimeMillis() - 6000000), isRead = true, senderName = DEMO_USER_NAMES[DEMO_USER_ID_OTHER_2]),
-            Message(id = UUID.randomUUID().toString(), conversationId = conv2Id, senderId = DEMO_USER_ID_ME, receiverId = DEMO_USER_ID_OTHER_2, text = "Not much, Bob. Just coding.", timestamp = Date(System.currentTimeMillis() - 5500000), isRead = false, senderName = DEMO_USER_NAMES[DEMO_USER_ID_ME])
+            Message(id = UUID.randomUUID().toString(), conversationId = conv2Id, senderId = DEMO_USER_ID_ME, receiverId = DEMO_USER_ID_OTHER_2, text = "Not much, Bob the Builder. Just coding.", timestamp = Date(System.currentTimeMillis() - 5500000), isRead = false, senderName = DEMO_USER_NAMES[DEMO_USER_ID_ME])
         )
         _allDemoMessagesFlow.value = initialMessages.sortedBy { it.timestamp }
     }
@@ -77,11 +77,11 @@ class DemoRepositoryImpl : DemoRepository {
     private fun simulateReceivingMessages() {
         applicationScope.launch {
             delay(15000) // Initial delay before the first simulated message
-            val aliceConvId = generateConversationIdInternal(DEMO_USER_ID_ME, DEMO_USER_ID_OTHER_1)
-            val newMessageFromAlice = Message(
+            val CharlieConvId = generateConversationIdInternal(DEMO_USER_ID_ME, DEMO_USER_ID_OTHER_1)
+            val newMessageFromCharlie  = Message(
                 id = UUID.randomUUID().toString(),
-                conversationId = aliceConvId,
-                senderId = DEMO_USER_ID_OTHER_1, // Alice sends
+                conversationId = CharlieConvId,
+                senderId = DEMO_USER_ID_OTHER_1, // Charlie  sends
                 receiverId = DEMO_USER_ID_ME,   // To Me
                 text = "Are there? It's been a while!",
                 senderName = DEMO_USER_NAMES[DEMO_USER_ID_OTHER_1],
@@ -89,9 +89,9 @@ class DemoRepositoryImpl : DemoRepository {
                 timestamp = Date() // Current time
             )
             // Add the new message and ensure the list remains sorted by timestamp
-            _allDemoMessagesFlow.value = (_allDemoMessagesFlow.value + newMessageFromAlice).sortedBy { it.timestamp }
+            _allDemoMessagesFlow.value = (_allDemoMessagesFlow.value + newMessageFromCharlie ).sortedBy { it.timestamp }
 
-            delay(10000) // Delay between Alice's message and Bob's message
+            delay(10000) // Delay between Charlie 's message and Bob the Builder's message
             val bobConvId = generateConversationIdInternal(DEMO_USER_ID_ME, DEMO_USER_ID_OTHER_2)
             val newMessageFromBob = Message(
                 id = UUID.randomUUID().toString(),
@@ -109,18 +109,18 @@ class DemoRepositoryImpl : DemoRepository {
             // can add more simulated messages here if desired
             // For example, a reply from "Me" after some delay:
             // delay(20000)
-            // val myReplyToAlice = Message(
+            // val myReplyToCharlie  = Message(
             //     id = UUID.randomUUID().toString(),
-            //     conversationId = aliceConvId,
+            //     conversationId = CharlieConvId,
             //     senderId = DEMO_USER_ID_ME,
             //     receiverId = DEMO_USER_ID_OTHER_1,
-            //     text = "Hey Alice! Sorry for the late reply. Doing well!",
+            //     text = "Hey Charlie ! Sorry for the late reply. Doing well!",
             //     senderName = DEMO_USER_NAMES[DEMO_USER_ID_ME],
             //     isRead = false, // isRead is from the receiver's perspective.
-            //                     // Alice hasn't read this yet.
+            //                     // Charlie  hasn't read this yet.
             //     timestamp = Date()
             // )
-            // _allDemoMessagesFlow.value = (_allDemoMessagesFlow.value + myReplyToAlice).sortedBy { it.timestamp }
+            // _allDemoMessagesFlow.value = (_allDemoMessagesFlow.value + myReplyToCharlie ).sortedBy { it.timestamp }
         }
     }
 
