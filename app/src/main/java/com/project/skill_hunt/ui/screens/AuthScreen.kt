@@ -74,7 +74,7 @@ fun LoginScreen(vm: AuthViewModel, navToHome: () -> Unit, navToRegister: () -> U
             colors = ButtonDefaults.buttonColors(containerColor = darkestBlue), // Button
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Log In")
+            Text("Log In", color = Color.Black)
         }
 
         err?.let {
@@ -135,7 +135,7 @@ fun RegisterScreen(vm: AuthViewModel, navToLogin: () -> Unit) {
             colors = ButtonDefaults.buttonColors(containerColor = darkestBlue), // Button
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Register")
+            Text("Register", color = Color.Black)
         }
 
         err?.let {

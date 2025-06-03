@@ -60,14 +60,14 @@ fun CourseListScreen(
                         shape = RoundedCornerShape(12.dp)
                     ) {
                         Column(Modifier.padding(8.dp)) {
-                            Text(course.title, style = MaterialTheme.typography.titleMedium, color = Color.White)
+                            Text(course.title, style = MaterialTheme.typography.titleMedium, color = Color.Black)
                             Text(
                                 course.category + " • " + course.skillLevel,
                                 style = MaterialTheme.typography.bodySmall,
-                                color = Color.White
+                                color = Color.Black
                             )
-                            Text(course.description, maxLines = 2, overflow = TextOverflow.Ellipsis, color = Color.White)
-                            Text("When: ${course.availability}", style = MaterialTheme.typography.bodySmall, color = Color.White)
+                            Text(course.description, maxLines = 2, overflow = TextOverflow.Ellipsis, color = Color.Black)
+                            Text("When: ${course.availability}", style = MaterialTheme.typography.bodySmall, color = Color.Black)
                         }
                     }
                 }
