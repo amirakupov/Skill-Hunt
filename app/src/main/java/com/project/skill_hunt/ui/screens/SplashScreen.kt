@@ -16,8 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.project.skill_hunt.R
 import com.project.skill_hunt.data.TokenPreferences
-import com.project.skill_hunt.ui.theme.lightBlue
-import com.project.skill_hunt.ui.theme.lighterBlue
+import com.project.skill_hunt.ui.theme.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

@@ -247,7 +247,7 @@ fun ProtectedHomeScreen(
                                 onClick = { navToListings() },
                                 modifier = Modifier.fillMaxWidth().height(64.dp),
                                 shape = RoundedCornerShape(10.dp),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF546E91))
+                                colors = ButtonDefaults.buttonColors(containerColor = buttonBlue)
                             ) {
                                 Text("Browse Skill Courses", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                             }
@@ -255,7 +255,7 @@ fun ProtectedHomeScreen(
                                 onClick = { navToAddCourse() },
                                 modifier = Modifier.fillMaxWidth().height(64.dp),
                                 shape = RoundedCornerShape(10.dp),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF546E91))
+                                colors = ButtonDefaults.buttonColors(containerColor = buttonBlue)
                             ) {
                                 Text("Offer a Skill Course", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                             }

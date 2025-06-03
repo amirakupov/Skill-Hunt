@@ -12,5 +12,7 @@ val Pink40 = Color(0xFF7D5260)
 
 val lightBlue = Color(0xFFD1EBF9)
 val lighterBlue = Color(0xFFE8F5FB)
-val darkerBlue = Color(0xFFADD8EB)
+val darkBlue = Color(0xFFADD8EB)
 val darkestBlue = Color(0xFF87C2DD)
+
+val buttonBlue =  Color(0xFF546E91)

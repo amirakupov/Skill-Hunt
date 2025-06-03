@@ -13,8 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.project.skill_hunt.ui.CourseListViewModel
-import com.project.skill_hunt.ui.theme.lightBlue
-import com.project.skill_hunt.ui.theme.lighterBlue
+import com.project.skill_hunt.ui.theme.*
 
 @Composable
 fun CourseListScreen(
@@ -36,7 +35,8 @@ fun CourseListScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text("My Courses", style = MaterialTheme.typography.headlineSmall)
-            Button(onClick = onAddCourse, shape = RoundedCornerShape(12.dp)) {
+            Button(onClick = onAddCourse, shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = buttonBlue)) {
                 Text("Add")
             }
         }
@@ -52,14 +52,22 @@ fun CourseListScreen(
         } else {
             LazyColumn {
                 items(list) { course ->
-                    Card(Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp)) {
+                    Card(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp),
+                        colors = CardDefaults.cardColors(containerColor = darkestBlue),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
                         Column(Modifier.padding(8.dp)) {
-                            Text(course.title, style = MaterialTheme.typography.titleMedium)
-                            Text(course.category + " • " + course.skillLevel, style = MaterialTheme.typography.bodySmall)
-                            Text(course.description, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                            Text("When: ${course.availability}", style = MaterialTheme.typography.bodySmall)
+                            Text(course.title, style = MaterialTheme.typography.titleMedium, color = Color.White)
+                            Text(
+                                course.category + " • " + course.skillLevel,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = Color.White
+                            )
+                            Text(course.description, maxLines = 2, overflow = TextOverflow.Ellipsis, color = Color.White)
+                            Text("When: ${course.availability}", style = MaterialTheme.typography.bodySmall, color = Color.White)
                         }
                     }
                 }
