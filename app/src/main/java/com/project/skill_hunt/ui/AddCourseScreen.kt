@@ -1,15 +1,18 @@
 package com.project.skill_hunt.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.shape.RoundedCornerShape
 import com.project.skill_hunt.data.model.AddCourseRequest
 import com.project.skill_hunt.data.model.CourseResponse
+import com.project.skill_hunt.ui.theme.lighterBlue
 
 @Composable
 fun AddCourseScreen(
@@ -20,7 +23,7 @@ fun AddCourseScreen(
     var category by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     var skillLevel by remember { mutableStateOf("") }
-    var locationType by remember { mutableStateOf("online") }  // default
+    var locationType by remember { mutableStateOf("online") }
     var availability by remember { mutableStateOf("") }
     var contactInfo by remember { mutableStateOf("") }
     val err = vm.errorMessage
@@ -33,6 +36,7 @@ fun AddCourseScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(lighterBlue)
             .padding(horizontal = 16.dp, vertical = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

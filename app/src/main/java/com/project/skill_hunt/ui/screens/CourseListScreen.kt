@@ -1,28 +1,21 @@
 package com.project.skill_hunt.ui.screens
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.project.skill_hunt.ui.CourseListViewModel
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
-
+import androidx.compose.ui.unit.dp
+import com.project.skill_hunt.ui.CourseListViewModel
+import com.project.skill_hunt.ui.theme.darkestBlue
+import com.project.skill_hunt.ui.theme.lightBlue
+import com.project.skill_hunt.ui.theme.lighterBlue
 
 @Composable
 fun CourseListScreen(
@@ -32,14 +25,20 @@ fun CourseListScreen(
     val list = vm.courses
     val err  = vm.errorMessage
 
-    Column(Modifier.fillMaxSize().padding(16.dp)) {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .background(lighterBlue)
+            .padding(16.dp)
+    ) {
         Row(
             Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment   = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text("My Courses", style = MaterialTheme.typography.headlineSmall)
-            Button(onClick = onAddCourse, shape = RoundedCornerShape(12.dp)) {
+            Button(onClick = onAddCourse, shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = darkestBlue)) {
                 Text("Add")
             }
         }
@@ -55,7 +54,9 @@ fun CourseListScreen(
         } else {
             LazyColumn {
                 items(list) { course ->
-                    Card(Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
+                    Card(Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp)) {
                         Column(Modifier.padding(8.dp)) {
                             Text(course.title, style = MaterialTheme.typography.titleMedium)
                             Text(course.category + " • " + course.skillLevel, style = MaterialTheme.typography.bodySmall)
@@ -68,4 +69,3 @@ fun CourseListScreen(
         }
     }
 }
-

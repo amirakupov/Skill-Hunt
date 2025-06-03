@@ -22,10 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.project.skill_hunt.R
 import com.project.skill_hunt.ui.login.AuthViewModel
-import com.project.skill_hunt.ui.theme.lighterBlue
+import com.project.skill_hunt.ui.theme.*
 import kotlinx.coroutines.launch
-
-private val lightBlue = Color(0xFFD1EBF9)
 
 @Composable
 fun LoginScreen(vm: AuthViewModel, navToHome: () -> Unit, navToRegister: () -> Unit) {
@@ -72,7 +70,8 @@ fun LoginScreen(vm: AuthViewModel, navToHome: () -> Unit, navToRegister: () -> U
 
         Button(
             onClick = { vm.login(email, pass) },
-            colors = ButtonDefaults.buttonColors(containerColor = lightBlue), // Button
+            shape = RoundedCornerShape(12.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = darkestBlue), // Button
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Log In")
@@ -132,7 +131,8 @@ fun RegisterScreen(vm: AuthViewModel, navToLogin: () -> Unit) {
 
         Button(
             onClick = { vm.register(email, pass) },
-            colors = ButtonDefaults.buttonColors(containerColor = lightBlue), // Button
+            shape = RoundedCornerShape(12.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = darkestBlue), // Button
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Register")
@@ -247,7 +247,7 @@ fun ProtectedHomeScreen(
                                 onClick = { navToListings() },
                                 modifier = Modifier.fillMaxWidth().height(64.dp),
                                 shape = RoundedCornerShape(10.dp),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF546E91))
+                                colors = ButtonDefaults.buttonColors(containerColor = darkestBlue)
                             ) {
                                 Text("Browse Skill Courses", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                             }
@@ -255,7 +255,7 @@ fun ProtectedHomeScreen(
                                 onClick = { navToAddCourse() },
                                 modifier = Modifier.fillMaxWidth().height(64.dp),
                                 shape = RoundedCornerShape(10.dp),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF546E91))
+                                colors = ButtonDefaults.buttonColors(containerColor = darkestBlue)
                             ) {
                                 Text("Offer a Skill Course", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                             }
