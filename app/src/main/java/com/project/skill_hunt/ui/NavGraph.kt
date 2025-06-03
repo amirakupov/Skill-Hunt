@@ -8,13 +8,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.project.skill_hunt.data.repository.CourseRepository
 import com.project.skill_hunt.ui.login.AuthViewModel
 import com.project.skill_hunt.ui.login.AuthViewModelFactory
 import com.project.skill_hunt.ui.screens.AddCourseScreen
 import com.project.skill_hunt.ui.screens.BrowseCoursesScreen
+import com.project.skill_hunt.ui.screens.CourseDetailScreen
 import com.project.skill_hunt.ui.screens.CourseListScreen
 import com.project.skill_hunt.ui.screens.SplashScreen
 
@@ -23,7 +27,8 @@ fun AppNavHost(
     authVmFactory: AuthViewModelFactory,
     courseVmFactory: CourseViewModelFactory,
     courseListVmFactory: CourseListViewModelFactory,
-    browseVmFactory: BrowseCoursesViewModelFactory
+    browseVmFactory: BrowseCoursesViewModelFactory,
+    courseRepo: CourseRepository
 ) {
     val navController = rememberNavController()
     val authVm: AuthViewModel = viewModel(factory = authVmFactory)
@@ -83,8 +88,25 @@ fun AppNavHost(
         }
         composable("browse") {
             val browseVm: BrowseCoursesViewModel = viewModel(factory = browseVmFactory)
-            BrowseCoursesScreen(browseVm)
+            BrowseCoursesScreen(
+                vm = browseVm,
+                navToDetail = { courseId ->
+                    navController.navigate("courseDetail/$courseId")
+                }
+            )
         }
+        composable(
+            route = "courseDetail/{courseId}",
+            arguments = listOf(navArgument("courseId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val courseId = backStackEntry.arguments?.getLong("courseId") ?: 0L
+            CourseDetailScreen(
+                courseId = courseId,
+                repo = courseRepo,
+                navUp = { navController.popBackStack() }
+            )
+        }
+
 
         composable("courses") {
             val listVm: CourseListViewModel = viewModel(factory = courseListVmFactory)

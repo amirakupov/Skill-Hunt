@@ -91,6 +91,20 @@ fun Application.module() {
                 val all = courseService.getAllCourses()
                 call.respond(all)
             }
+            get("/courses/{id}") {
+                val idParam = call.parameters["id"]
+                val id = idParam?.toLongOrNull()
+                if (id == null) {
+                    call.respond(HttpStatusCode.BadRequest, "Invalid course ID")
+                    return@get
+                }
+                val course = courseService.getCourseById(id)
+                if (course == null) {
+                    call.respond(HttpStatusCode.NotFound, "Course not found")
+                } else {
+                    call.respond(course)
+                }
+            }
 
             // any route inside this block requires a valid JWT:
             authenticate("auth-jwt") {

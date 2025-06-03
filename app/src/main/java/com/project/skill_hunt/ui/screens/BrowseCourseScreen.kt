@@ -1,6 +1,7 @@
 package com.project.skill_hunt.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -16,7 +17,7 @@ import com.project.skill_hunt.ui.BrowseCoursesViewModel
 
 @Composable
 fun BrowseCoursesScreen(
-    vm: BrowseCoursesViewModel
+    vm: BrowseCoursesViewModel,navToDetail: (Long) -> Unit
 ) {
     val allCourses = vm.courses
     val err        = vm.errorMessage
@@ -106,9 +107,35 @@ fun BrowseCoursesScreen(
         } else {
             LazyColumn(Modifier.fillMaxSize()) {
                 items(filteredCourses) { course ->
-                    CourseCard(course)
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp)
+                            .clickable {
+                                // Use the passed‐in lambda instead of navController directly
+                                navToDetail(course.id)
+                            },
+                        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                    ) {
+                        Column(Modifier.padding(12.dp)) {
+                            Text(course.title, style = MaterialTheme.typography.titleMedium)
+                            Spacer(Modifier.height(4.dp))
+                            Text(
+                                text = "${course.category} • ${course.skillLevel}",
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                            Spacer(Modifier.height(4.dp))
+                            Text(course.description, maxLines = 2, style = MaterialTheme.typography.bodySmall)
+                            Spacer(Modifier.height(4.dp))
+                            Text(
+                                text = "By: ${course.userEmail} • ${course.createdAt.take(10)}",
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
+                    }
                 }
             }
+
         }
     }
 }

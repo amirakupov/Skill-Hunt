@@ -13,6 +13,7 @@ interface ICourseRepository {
     fun addCourse(req: AddCourseRequest, userEmail: String): CourseResponse
     fun getCoursesByUser(userEmail: String): List<CourseResponse>
     fun getAllCourses(): List<CourseResponse>
+    fun getCourseById(id: Long): CourseResponse?
 }
 
 object CourseRepositoryImpl : ICourseRepository {
@@ -80,5 +81,24 @@ object CourseRepositoryImpl : ICourseRepository {
                     createdAt    = it[Courses.createdAt].toString()
                 )
             }
+    }
+    override fun getCourseById(id: Long): CourseResponse? = transaction {
+        Courses
+            .select { Courses.id eq id }
+            .mapNotNull { row ->
+                CourseResponse(
+                    id           = row[Courses.id].value,
+                    userEmail    = row[Courses.userEmail],
+                    title        = row[Courses.title],
+                    category     = row[Courses.category],
+                    description  = row[Courses.description],
+                    skillLevel   = row[Courses.skillLevel],
+                    locationType = row[Courses.locationType],
+                    availability = row[Courses.availability],
+                    contactInfo  = row[Courses.contactInfo],
+                    createdAt    = row[Courses.createdAt].toString()
+                )
+            }
+            .singleOrNull()
     }
 }

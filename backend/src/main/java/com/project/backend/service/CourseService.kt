@@ -17,4 +17,7 @@ class CourseService(private val repo: ICourseRepository) {
     fun getAllCourses(): List<CourseResponse> {
         return repo.getAllCourses()
     }
+    fun getCourseById(id: Long): CourseResponse? {
+        return repo.getCourseById(id)
+    }
 }

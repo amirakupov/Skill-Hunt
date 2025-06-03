@@ -43,7 +43,9 @@ class MainActivity : ComponentActivity() {
                 AppNavHost(authVmFactory = authVmFactory,
                     courseListVmFactory = listVmFactory,
                     courseVmFactory = courseVmFactory,
-                    browseVmFactory     = browseVmFactory)
+                    browseVmFactory     = browseVmFactory,
+                    courseRepo = courseRepo
+                )
 
             }
         }
