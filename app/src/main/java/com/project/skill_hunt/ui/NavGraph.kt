@@ -2,8 +2,6 @@ package com.project.skill_hunt.ui
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -92,7 +90,8 @@ fun AppNavHost(
                 vm = browseVm,
                 navToDetail = { courseId ->
                     navController.navigate("courseDetail/$courseId")
-                }
+                },
+                navBack = { navController.popBackStack() }
             )
         }
         composable(
@@ -114,7 +113,9 @@ fun AppNavHost(
                 vm = listVm,
                 onAddCourse = {
                     navController.navigate("addCourse")
-                }
+                },
+                navBack = { navController.popBackStack() }
+
             )
         }
 
