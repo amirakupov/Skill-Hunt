@@ -5,7 +5,7 @@ import com.project.DOMAINLAYER.fromDataLayer.model.ConversationSnippet
 import com.project.DOMAINLAYER.fromDataLayer.model.Message
 import kotlinx.coroutines.flow.Flow
 
-interface DemoRepository {
+interface DataRepository {
     // These methods operate on demo data
     fun getDemoConversationSnippets(userId: String): Flow<List<ConversationSnippet>>
     fun getDemoMessages(conversationId: String): Flow<List<Message>>

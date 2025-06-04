@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.project.DOMAINLAYER.toUIlayer.InMemoryMessageRepository // Corrected import
 import com.project.DOMAINLAYER.usecase15.MessageRepository       // Corrected import
 import com.project.DOMAINLAYER.toUIlayer.USER_ID_ME              // Corrected import
-import com.project.DOMAINLAYER.fromDataLayer.DemoRepositoryImpl // Import the implementation
-import com.project.DOMAINLAYER.usecase15.DemoRepository     // Import the interface
+import com.project.DOMAINLAYER.fromDataLayer.DataRepositoryImpl // Import the implementation
+import com.project.DOMAINLAYER.usecase15.DataRepository     // Import the interface
 import com.project.MessagingFromScratch.ui.AppNavigation
 import com.project.MessagingFromScratch.ui.theme.MessagingFromScratchTheme
 import com.project.MessagingFromScratch.ui.viewmodel.ChatViewModel
@@ -23,13 +23,13 @@ import com.project.MessagingFromScratch.ui.viewmodel.ConversationListViewModel
 class MainActivity : ComponentActivity() {
 
     // 1. Create an instance of DemoRepositoryImpl
-    private val demoRepository: DemoRepository by lazy {
-        DemoRepositoryImpl()
+    private val dataRepository: DataRepository by lazy {
+        DataRepositoryImpl()
     }
 
     // 2. Pass demoRepository to InMemoryMessageRepository
     private val messageRepository: MessageRepository by lazy {
-        InMemoryMessageRepository(demoRepository) // <<< PASS IT HERE
+        InMemoryMessageRepository(dataRepository) // <<< PASS IT HERE
     }
 
     private val conversationListViewModelFactory: ViewModelProvider.Factory by lazy {

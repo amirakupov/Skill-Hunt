@@ -2,7 +2,7 @@
 package com.project.DOMAINLAYER.fromDataLayer
 
 // ... (other imports: Message, ConversationSnippet, kotlinx.coroutines, Date, UUID, Random)
-import com.project.DOMAINLAYER.usecase15.DemoRepository
+import com.project.DOMAINLAYER.usecase15.DataRepository
 import com.project.DOMAINLAYER.fromDataLayer.model.ConversationSnippet
 import com.project.DOMAINLAYER.fromDataLayer.model.Message
 import kotlinx.coroutines.CoroutineScope
@@ -16,7 +16,7 @@ import java.util.UUID
 import kotlin.random.Random
 
 
-class DemoRepositoryImpl : DemoRepository {
+class DataRepositoryImpl : DataRepository {
 
     // Make constants available to InMemoryMessageRepository if it needs them
     // Or, InMemoryMessageRepository can just use the getDemoUserIdMe() method

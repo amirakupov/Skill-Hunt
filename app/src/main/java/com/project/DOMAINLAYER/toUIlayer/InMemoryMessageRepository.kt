@@ -16,8 +16,8 @@ import java.util.UUID
 // Project's Local/Custom Types
 import com.project.DOMAINLAYER.fromDataLayer.model.ConversationSnippet
 import com.project.DOMAINLAYER.fromDataLayer.model.Message
-import com.project.DOMAINLAYER.usecase15.DemoRepository
-import com.project.DOMAINLAYER.fromDataLayer.DemoRepositoryImpl
+import com.project.DOMAINLAYER.usecase15.DataRepository
+import com.project.DOMAINLAYER.fromDataLayer.DataRepositoryImpl
 import com.project.DOMAINLAYER.usecase15.MessageRepository
 
 // TODO: Import REAL repository interfaces from DOMAINLAYER if/when integrate them
@@ -26,20 +26,20 @@ import com.project.DOMAINLAYER.usecase15.MessageRepository
 // import com.project.DOMAINLAYER.repository.RealMessageRepository
 
 // --- Constants for Demo Mode ---
-const val USER_ID_ME: String = DemoRepositoryImpl.DEMO_USER_ID_ME
-val USER_NAMES: Map<String, String> = DemoRepositoryImpl.DEMO_USER_NAMES
+const val USER_ID_ME: String = DataRepositoryImpl.DEMO_USER_ID_ME
+val USER_NAMES: Map<String, String> = DataRepositoryImpl.DEMO_USER_NAMES
 
 // InMemoryMessageRepository.kt
 // @Inject // Make sure this is commented out or removed for manual DI test
 class InMemoryMessageRepository constructor(
-    private val demoRepository: DemoRepository
+    private val dataRepository: DataRepository
     // ...
 ) : MessageRepository {  // Ensure MessageRepository interface is correctly defined and its methods match
 
     init {
         // If demoRepository is always DemoRepositoryImpl and want to start its simulation
-        if (demoRepository is DemoRepositoryImpl) {
-            demoRepository.startFullDemoSimulation()
+        if (dataRepository is DataRepositoryImpl) {
+            dataRepository.startFullDemoSimulation()
         }
     }
 
@@ -52,7 +52,7 @@ class InMemoryMessageRepository constructor(
     override fun getConversationSnippets(userId: String): Flow<List<ConversationSnippet>> {
         return flow { emit(getCurrentActualUserId()) }.flatMapLatest { currentActualUserIdValue ->
             if (userId == USER_ID_ME) {
-                demoRepository.getDemoConversationSnippets(userId).flatMapLatest { demoSnippets ->
+                dataRepository.getDemoConversationSnippets(userId).flatMapLatest { demoSnippets ->
                     if (demoSnippets.isNotEmpty()) {
                         flowOf(demoSnippets)
                     } else {
@@ -63,7 +63,7 @@ class InMemoryMessageRepository constructor(
                 flowOf(emptyList<ConversationSnippet>()) // Placeholder for real user's snippets
             } else {
                 if (USER_NAMES.containsKey(userId)) {
-                    demoRepository.getDemoConversationSnippets(userId)
+                    dataRepository.getDemoConversationSnippets(userId)
                 } else {
                     flowOf(emptyList())
                 }
@@ -76,7 +76,7 @@ class InMemoryMessageRepository constructor(
         val isPotentiallyDemoConversation = knownDemoUserIds.any { demoUserId -> conversationId.contains(demoUserId) }
 
         if (isPotentiallyDemoConversation) {
-            return demoRepository.getDemoMessages(conversationId).flatMapLatest { demoMessages ->
+            return dataRepository.getDemoMessages(conversationId).flatMapLatest { demoMessages ->
                 if (demoMessages.isNotEmpty()) {
                     flowOf(demoMessages)
                 } else {
@@ -104,7 +104,7 @@ class InMemoryMessageRepository constructor(
                 (senderId == USER_ID_ME && USER_NAMES.containsKey(receiverId))
 
         if (useDemoRepositoryForSend) {
-            return demoRepository.sendDemoMessage(conversationId, senderId, receiverId, text)
+            return dataRepository.sendDemoMessage(conversationId, senderId, receiverId, text)
         } else {
             val actualSenderId: String
             if (senderId == USER_ID_ME && currentActualUserIdValue != null) {
@@ -131,7 +131,7 @@ class InMemoryMessageRepository constructor(
         val isUserId2Demo = USER_NAMES.containsKey(userId2)
 
         if (isUserId1Demo || isUserId2Demo) {
-            return demoRepository.getOrCreateDemoConversationId(userId1, userId2)
+            return dataRepository.getOrCreateDemoConversationId(userId1, userId2)
         } else {
             // TODO: Replace with actual repository call
             // return realMessageRepository.getOrCreateConversationId(userId1, userId2)
@@ -146,7 +146,7 @@ class InMemoryMessageRepository constructor(
         if (isPotentiallyDemoConversation) {
             // It's possible the reader is DEMO_USER_ID_ME or another demo user,
             // or a real user reading a conversation involving demo users.
-            demoRepository.markDemoMessagesAsRead(conversationId, readerUserId)
+            dataRepository.markDemoMessagesAsRead(conversationId, readerUserId)
         }
 
         // Now, consider the real repository, regardless of demo status,
