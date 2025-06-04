@@ -3,9 +3,9 @@ package com.project.MessagingFromScratch.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.project.DOMAINLAYER.fromDataLayer.model.Message
-import com.project.DOMAINLAYER.usecase15.MessageRepository
-import com.project.DOMAINLAYER.toUIlayer.USER_ID_ME // Assuming current user is ME for sending
+import com.project.DOMAINLAYER.fromDataLayer.Message
+import com.project.DOMAINLAYER.usecase15.UIrepository
+import com.project.DOMAINLAYER.usecase15.USER_ID_ME // Assuming current user is ME for sending
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -22,7 +22,7 @@ data class ChatUiState(
 
 // --- ChatViewModel ---
 class ChatViewModel(
-    private val messageRepository: MessageRepository
+    private val UIrepository: UIrepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ChatUiState())
@@ -52,7 +52,7 @@ class ChatViewModel(
         }
 
         viewModelScope.launch {
-            messageRepository.getMessages(conversationId)
+            UIrepository.getMessages(conversationId)
                 .catch { e ->
                     _uiState.update {
                         it.copy(
@@ -91,7 +91,7 @@ class ChatViewModel(
             // Optimistically update UI or show sending indicator if desired
             _uiState.update { it.copy(currentMessageText = "") } // Clear input field
 
-            val result = messageRepository.sendMessage(
+            val result = UIrepository.sendMessage(
                 conversationId = convId,
                 senderId = USER_ID_ME, // Assuming current user sends the message
                 receiverId = receiverId,
@@ -119,14 +119,14 @@ class ChatViewModel(
                 it.conversationId == conversationId && it.receiverId == readerUserId && !it.isRead
             }
             if (unreadMessagesExist) {
-                messageRepository.markMessagesAsRead(conversationId, readerUserId)
+                UIrepository.markMessagesAsRead(conversationId, readerUserId)
             }
         }
     }
 
     // Factory for creating ChatViewModel with dependencies
     companion object {
-        fun Factory(repository: MessageRepository): ViewModelProvider.Factory =
+        fun Factory(repository: UIrepository): ViewModelProvider.Factory =
             object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {

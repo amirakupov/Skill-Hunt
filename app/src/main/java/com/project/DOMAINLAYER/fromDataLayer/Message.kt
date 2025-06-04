@@ -1,4 +1,4 @@
-package com.project.DOMAINLAYER.fromDataLayer.model
+package com.project.DOMAINLAYER.fromDataLayer
 
 import java.util.Date
 import java.util.UUID

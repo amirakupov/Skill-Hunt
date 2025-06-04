@@ -10,9 +10,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
-import com.project.DOMAINLAYER.toUIlayer.InMemoryMessageRepository // Corrected import
-import com.project.DOMAINLAYER.usecase15.MessageRepository       // Corrected import
-import com.project.DOMAINLAYER.toUIlayer.USER_ID_ME              // Corrected import
+import com.project.DOMAINLAYER.usecase15.InMemoryUIrepository // Corrected import
+import com.project.DOMAINLAYER.usecase15.UIrepository       // Corrected import
+import com.project.DOMAINLAYER.usecase15.USER_ID_ME              // Corrected import
 import com.project.DOMAINLAYER.fromDataLayer.DataRepositoryImpl // Import the implementation
 import com.project.DOMAINLAYER.usecase15.DataRepository     // Import the interface
 import com.project.MessagingFromScratch.ui.AppNavigation
@@ -27,17 +27,17 @@ class MainActivity : ComponentActivity() {
         DataRepositoryImpl()
     }
 
-    // 2. Pass demoRepository to InMemoryMessageRepository
-    private val messageRepository: MessageRepository by lazy {
-        InMemoryMessageRepository(dataRepository) // <<< PASS IT HERE
+    // 2. Pass demoRepository to InMemoryUIrepository
+    private val UIrepository: UIrepository by lazy {
+        InMemoryUIrepository(dataRepository) // <<< PASS IT HERE
     }
 
     private val conversationListViewModelFactory: ViewModelProvider.Factory by lazy {
-        ConversationListViewModel.Factory(messageRepository, USER_ID_ME)
+        ConversationListViewModel.Factory(UIrepository, USER_ID_ME)
     }
 
     private val chatViewModelFactory: ViewModelProvider.Factory by lazy {
-        ChatViewModel.Factory(messageRepository)
+        ChatViewModel.Factory(UIrepository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

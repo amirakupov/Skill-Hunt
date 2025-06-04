@@ -1,5 +1,5 @@
-// File: /MessagingFromScratch/repository/InMemoryMessageRepository.kt
-package com.project.DOMAINLAYER.toUIlayer
+// File: /MessagingFromScratch/repository/usecase15_MAINrepository.kt
+package com.project.DOMAINLAYER.usecase15
 
 // Kotlin & Coroutines
 import kotlinx.coroutines.flow.Flow
@@ -14,11 +14,9 @@ import java.util.UUID
 // Javax Inject (for Hilt/Dagger)
 
 // Project's Local/Custom Types
-import com.project.DOMAINLAYER.fromDataLayer.model.ConversationSnippet
-import com.project.DOMAINLAYER.fromDataLayer.model.Message
-import com.project.DOMAINLAYER.usecase15.DataRepository
+import com.project.DOMAINLAYER.fromDataLayer.Message
 import com.project.DOMAINLAYER.fromDataLayer.DataRepositoryImpl
-import com.project.DOMAINLAYER.usecase15.MessageRepository
+import com.project.DOMAINLAYER.toUIlayer.ConversationSnippet
 
 // TODO: Import REAL repository interfaces from DOMAINLAYER if/when integrate them
 // For example:
@@ -29,12 +27,12 @@ import com.project.DOMAINLAYER.usecase15.MessageRepository
 const val USER_ID_ME: String = DataRepositoryImpl.DEMO_USER_ID_ME
 val USER_NAMES: Map<String, String> = DataRepositoryImpl.DEMO_USER_NAMES
 
-// InMemoryMessageRepository.kt
+// usecase15_MAINrepository.kt
 // @Inject // Make sure this is commented out or removed for manual DI test
-class InMemoryMessageRepository constructor(
+class InMemoryUIrepository constructor(
     private val dataRepository: DataRepository
     // ...
-) : MessageRepository {  // Ensure MessageRepository interface is correctly defined and its methods match
+) : UIrepository {  // Ensure UIrepository interface is correctly defined and its methods match
 
     init {
         // If demoRepository is always DemoRepositoryImpl and want to start its simulation
@@ -167,4 +165,4 @@ class InMemoryMessageRepository constructor(
         // The demo repository handling is separate and already done if applicable.
     }
 
-} // End of InMemoryMessageRepository class
+} // End of InMemoryUIrepository class

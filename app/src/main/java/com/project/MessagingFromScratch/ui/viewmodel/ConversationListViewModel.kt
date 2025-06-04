@@ -3,8 +3,8 @@ package com.project.MessagingFromScratch.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.project.DOMAINLAYER.fromDataLayer.model.ConversationSnippet
-import com.project.DOMAINLAYER.usecase15.MessageRepository
+import com.project.DOMAINLAYER.toUIlayer.ConversationSnippet
+import com.project.DOMAINLAYER.usecase15.UIrepository
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -17,7 +17,7 @@ sealed interface ConversationListUiState {
 
 // --- ConversationListViewModel ---
 class ConversationListViewModel(
-    private val messageRepository: MessageRepository, private val currentUserId: String // Passed in constructor
+    private val UIrepository: UIrepository, private val currentUserId: String // Passed in constructor
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<ConversationListUiState>(ConversationListUiState.Loading)
@@ -29,7 +29,7 @@ class ConversationListViewModel(
 
     private fun loadConversations() {
         viewModelScope.launch {
-            messageRepository.getConversationSnippets(currentUserId)
+            UIrepository.getConversationSnippets(currentUserId)
                 .catch { e ->
                     _uiState.value = ConversationListUiState.Error("Failed to load conversations: ${e.message}")
                 }
@@ -41,7 +41,7 @@ class ConversationListViewModel(
 
     fun getOrCreateConversationWith(otherUserId: String, onConversationReady: (conversationId: String) -> Unit) {
         viewModelScope.launch {
-            messageRepository.getOrCreateConversationId(currentUserId, otherUserId)
+            UIrepository.getOrCreateConversationId(currentUserId, otherUserId)
                 .catch { e ->
                     // Handle error, maybe update UI state to show an error message
                     _uiState.update { currentState ->
@@ -64,7 +64,7 @@ class ConversationListViewModel(
             // The repository's markMessagesAsRead will handle the actual data change,
             // which should then flow back and update the snippet list.
             // No direct UI state manipulation here might be needed if the flow from repo is quick.
-            messageRepository.markMessagesAsRead(conversationId, readerUserId)
+            UIrepository.markMessagesAsRead(conversationId, readerUserId)
             // Optionally, if need a more immediate reflection before the flow updates,
             // could manually update the specific snippet here, but it can get complex.
         }
@@ -72,7 +72,7 @@ class ConversationListViewModel(
 
 
     companion object {
-        fun Factory(repository: MessageRepository, userId: String): ViewModelProvider.Factory =
+        fun Factory(repository: UIrepository, userId: String): ViewModelProvider.Factory =
             object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {

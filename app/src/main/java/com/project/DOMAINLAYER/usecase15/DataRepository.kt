@@ -1,8 +1,8 @@
 // File: /MessagingFromScratch/repository/demo/DemoRepository.kt
 package com.project.DOMAINLAYER.usecase15
 
-import com.project.DOMAINLAYER.fromDataLayer.model.ConversationSnippet
-import com.project.DOMAINLAYER.fromDataLayer.model.Message
+import com.project.DOMAINLAYER.toUIlayer.ConversationSnippet
+import com.project.DOMAINLAYER.fromDataLayer.Message
 import kotlinx.coroutines.flow.Flow
 
 interface DataRepository {
@@ -21,7 +21,7 @@ interface DataRepository {
 
     // Method to get the demo user ID for "Me"
     fun getDemoUserIdMe(): String
-    // Method to get other demo user IDs if needed by InMemoryMessageRepository
+    // Method to get other demo user IDs if needed by InMemoryUIrepository
     // fun getDemoUserIdOther1(): String
     // fun getDemoUserNamesMap(): Map<String, String>
 }

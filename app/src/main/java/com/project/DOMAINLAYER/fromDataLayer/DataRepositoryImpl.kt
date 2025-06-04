@@ -3,8 +3,7 @@ package com.project.DOMAINLAYER.fromDataLayer
 
 // ... (other imports: Message, ConversationSnippet, kotlinx.coroutines, Date, UUID, Random)
 import com.project.DOMAINLAYER.usecase15.DataRepository
-import com.project.DOMAINLAYER.fromDataLayer.model.ConversationSnippet
-import com.project.DOMAINLAYER.fromDataLayer.model.Message
+import com.project.DOMAINLAYER.toUIlayer.ConversationSnippet
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -18,8 +17,8 @@ import kotlin.random.Random
 
 class DataRepositoryImpl : DataRepository {
 
-    // Make constants available to InMemoryMessageRepository if it needs them
-    // Or, InMemoryMessageRepository can just use the getDemoUserIdMe() method
+    // Make constants available to InMemoryUIrepository if it needs them
+    // Or, InMemoryUIrepository can just use the getDemoUserIdMe() method
     companion object {
         const val DEMO_USER_ID_ME = "userMe"
         const val DEMO_USER_ID_OTHER_1 = "userOther1"

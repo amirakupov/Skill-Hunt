@@ -1,4 +1,4 @@
-package com.project.DOMAINLAYER.fromDataLayer.model
+package com.project.DOMAINLAYER.toUIlayer
 
 import java.util.Date
 

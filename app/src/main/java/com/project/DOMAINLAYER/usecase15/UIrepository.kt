@@ -1,10 +1,10 @@
 package com.project.DOMAINLAYER.usecase15
 
-import com.project.DOMAINLAYER.fromDataLayer.model.ConversationSnippet
-import com.project.DOMAINLAYER.fromDataLayer.model.Message
+import com.project.DOMAINLAYER.toUIlayer.ConversationSnippet
+import com.project.DOMAINLAYER.fromDataLayer.Message
 import kotlinx.coroutines.flow.Flow
 
-interface MessageRepository {
+interface UIrepository {
     fun getConversationSnippets(userId: String): Flow<List<ConversationSnippet>>
     fun getMessages(conversationId: String): Flow<List<Message>>
     suspend fun sendMessage(

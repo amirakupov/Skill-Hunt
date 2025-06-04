@@ -28,8 +28,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 // import androidx.compose.ui.unit.sp // Already imported if text styles use it
-import com.project.DOMAINLAYER.fromDataLayer.model.Message
-import com.project.DOMAINLAYER.toUIlayer.USER_ID_ME
+import com.project.DOMAINLAYER.fromDataLayer.Message
+import com.project.DOMAINLAYER.usecase15.USER_ID_ME
 import com.project.MessagingFromScratch.ui.viewmodel.ChatUiState
 import com.project.MessagingFromScratch.ui.viewmodel.ChatViewModel
 import java.text.SimpleDateFormat
