@@ -1,8 +1,8 @@
 // File: /MessagingFromScratch/repository/demo/DemoRepository.kt
-package com.project.MessagingFromScratch.repository.demo
+package com.project.DOMAINLAYER.usecase15
 
-import com.project.MessagingFromScratch.data.model.ConversationSnippet
-import com.project.MessagingFromScratch.data.model.Message
+import com.project.DOMAINLAYER.fromDataLayer.model.ConversationSnippet
+import com.project.DOMAINLAYER.fromDataLayer.model.Message
 import kotlinx.coroutines.flow.Flow
 
 interface DemoRepository {

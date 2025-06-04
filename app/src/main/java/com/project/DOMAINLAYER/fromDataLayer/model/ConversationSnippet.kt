@@ -1,4 +1,4 @@
-package com.project.MessagingFromScratch.data.model
+package com.project.DOMAINLAYER.fromDataLayer.model
 
 import java.util.Date
 

@@ -1,9 +1,10 @@
 // File: /MessagingFromScratch/repository/demo/DemoRepositoryImpl.kt
-package com.project.MessagingFromScratch.repository.demo
+package com.project.DOMAINLAYER.fromDataLayer
 
 // ... (other imports: Message, ConversationSnippet, kotlinx.coroutines, Date, UUID, Random)
-import com.project.MessagingFromScratch.data.model.ConversationSnippet
-import com.project.MessagingFromScratch.data.model.Message
+import com.project.DOMAINLAYER.usecase15.DemoRepository
+import com.project.DOMAINLAYER.fromDataLayer.model.ConversationSnippet
+import com.project.DOMAINLAYER.fromDataLayer.model.Message
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

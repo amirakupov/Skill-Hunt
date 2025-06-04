@@ -1,5 +1,5 @@
 // File: /MessagingFromScratch/repository/InMemoryMessageRepository.kt
-package com.project.MessagingFromScratch.repository
+package com.project.DOMAINLAYER.toUIlayer
 
 // Kotlin & Coroutines
 import kotlinx.coroutines.flow.Flow
@@ -12,13 +12,13 @@ import kotlinx.coroutines.flow.flowOf
 import java.util.UUID
 
 // Javax Inject (for Hilt/Dagger)
-import javax.inject.Inject
 
 // Project's Local/Custom Types
-import com.project.MessagingFromScratch.data.model.ConversationSnippet
-import com.project.MessagingFromScratch.data.model.Message
-import com.project.MessagingFromScratch.repository.demo.DemoRepository
-import com.project.MessagingFromScratch.repository.demo.DemoRepositoryImpl
+import com.project.DOMAINLAYER.fromDataLayer.model.ConversationSnippet
+import com.project.DOMAINLAYER.fromDataLayer.model.Message
+import com.project.DOMAINLAYER.usecase15.DemoRepository
+import com.project.DOMAINLAYER.fromDataLayer.DemoRepositoryImpl
+import com.project.DOMAINLAYER.usecase15.MessageRepository
 
 // TODO: Import REAL repository interfaces from DOMAINLAYER if/when integrate them
 // For example:

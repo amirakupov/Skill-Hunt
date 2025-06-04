@@ -21,7 +21,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 // import androidx.compose.ui.platform.LocalView // Might not be needed directly
@@ -29,11 +28,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 // import androidx.compose.ui.unit.sp // Already imported if text styles use it
-import com.project.MessagingFromScratch.data.model.Message
-import com.project.MessagingFromScratch.repository.USER_ID_ME
+import com.project.DOMAINLAYER.fromDataLayer.model.Message
+import com.project.DOMAINLAYER.toUIlayer.USER_ID_ME
 import com.project.MessagingFromScratch.ui.viewmodel.ChatUiState
 import com.project.MessagingFromScratch.ui.viewmodel.ChatViewModel
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

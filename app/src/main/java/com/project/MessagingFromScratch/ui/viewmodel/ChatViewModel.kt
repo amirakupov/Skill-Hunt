@@ -3,10 +3,9 @@ package com.project.MessagingFromScratch.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.project.MessagingFromScratch.data.model.Message
-import com.project.MessagingFromScratch.repository.MessageRepository
-import com.project.MessagingFromScratch.repository.USER_ID_ME // Assuming current user is ME for sending
-import com.project.MessagingFromScratch.repository.USER_NAMES
+import com.project.DOMAINLAYER.fromDataLayer.model.Message
+import com.project.DOMAINLAYER.usecase15.MessageRepository
+import com.project.DOMAINLAYER.toUIlayer.USER_ID_ME // Assuming current user is ME for sending
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 

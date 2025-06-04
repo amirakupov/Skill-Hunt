@@ -3,8 +3,8 @@ package com.project.MessagingFromScratch.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.project.MessagingFromScratch.data.model.ConversationSnippet
-import com.project.MessagingFromScratch.repository.MessageRepository
+import com.project.DOMAINLAYER.fromDataLayer.model.ConversationSnippet
+import com.project.DOMAINLAYER.usecase15.MessageRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -17,7 +17,7 @@ sealed interface ConversationListUiState {
 
 // --- ConversationListViewModel ---
 class ConversationListViewModel(
-    private val messageRepository: MessageRepository,private val currentUserId: String // Passed in constructor
+    private val messageRepository: MessageRepository, private val currentUserId: String // Passed in constructor
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<ConversationListUiState>(ConversationListUiState.Loading)

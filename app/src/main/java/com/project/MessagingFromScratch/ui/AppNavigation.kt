@@ -2,7 +2,6 @@ package com.project.MessagingFromScratch.ui // Corrected package if it was .view
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier // Added Modifier import if you use it in AppNavigation
-import androidx.compose.runtime.remember // <--- ADD THIS LINE
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -11,7 +10,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.project.MessagingFromScratch.repository.USER_NAMES // Import user names, if still needed here
 import com.project.MessagingFromScratch.ui.screens.ChatScreen
 import com.project.MessagingFromScratch.ui.screens.ConversationListScreen
 import com.project.MessagingFromScratch.ui.viewmodel.ChatViewModel

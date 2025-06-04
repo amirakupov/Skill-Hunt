@@ -10,11 +10,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
-import com.project.MessagingFromScratch.repository.InMemoryMessageRepository // Corrected import
-import com.project.MessagingFromScratch.repository.MessageRepository       // Corrected import
-import com.project.MessagingFromScratch.repository.USER_ID_ME              // Corrected import
-import com.project.MessagingFromScratch.repository.demo.DemoRepositoryImpl // Import the implementation
-import com.project.MessagingFromScratch.repository.demo.DemoRepository     // Import the interface
+import com.project.DOMAINLAYER.toUIlayer.InMemoryMessageRepository // Corrected import
+import com.project.DOMAINLAYER.usecase15.MessageRepository       // Corrected import
+import com.project.DOMAINLAYER.toUIlayer.USER_ID_ME              // Corrected import
+import com.project.DOMAINLAYER.fromDataLayer.DemoRepositoryImpl // Import the implementation
+import com.project.DOMAINLAYER.usecase15.DemoRepository     // Import the interface
 import com.project.MessagingFromScratch.ui.AppNavigation
 import com.project.MessagingFromScratch.ui.theme.MessagingFromScratchTheme
 import com.project.MessagingFromScratch.ui.viewmodel.ChatViewModel

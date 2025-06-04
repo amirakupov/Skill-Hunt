@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons // Make sure this is used or remove if not
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.getValue
@@ -18,9 +17,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.project.MessagingFromScratch.data.model.ConversationSnippet
-import com.project.MessagingFromScratch.repository.USER_ID_ME
-import com.project.MessagingFromScratch.repository.USER_NAMES
+import com.project.DOMAINLAYER.fromDataLayer.model.ConversationSnippet
+import com.project.DOMAINLAYER.toUIlayer.USER_ID_ME
+import com.project.DOMAINLAYER.toUIlayer.USER_NAMES
 import com.project.MessagingFromScratch.ui.viewmodel.ConversationListUiState
 import com.project.MessagingFromScratch.ui.viewmodel.ConversationListViewModel
 import java.text.SimpleDateFormat
