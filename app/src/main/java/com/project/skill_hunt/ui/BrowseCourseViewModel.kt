@@ -1,6 +1,5 @@
 package com.project.skill_hunt.ui
 
-
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
